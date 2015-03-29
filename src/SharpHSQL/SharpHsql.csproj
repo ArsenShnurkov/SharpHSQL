@@ -1,0 +1,325 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B98F7374-FF00-4BB7-93EC-39763A76BFFF}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>SharpHsql</AssemblyName>
+    <AssemblyOriginatorKeyFile>KeyPair.snk</AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Flow</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE32Nav30</DefaultTargetSchema>
+    <DelaySign>true</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SharpHsql</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <PublishUrl>http://localhost/SharpHsql/</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Web</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SignAssembly>true</SignAssembly>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BaseAddress>0</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG</DefineConstants>
+    <DocumentationFile>doc\SharpHsql.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <BaseAddress>0</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DocumentationFile>doc\SharpHsql.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="log4net">
+      <Name>log4net</Name>
+      <HintPath>..\External Libraries\Log4Net 1.2\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Name>mscorlib</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Access.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AccessType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ByteArray.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Cache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CacheFree.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Channel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Column.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ColumnType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Constraint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ConstraintType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Database.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DatabaseConfig.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DatabaseController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DatabaseInformation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Declare.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="EventLogHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Expression.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ExpressionType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Function.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Index.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Library.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Like.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Log.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="LogHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Node.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Parser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\CommandBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\CommandBuilderBehavior.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlCommandBuilder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlConnectionString.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlDataAdapter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlError.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlErrorCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlParameter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlParameterCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlTransaction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Record.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ReflexHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Result.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ResultType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Row.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Select.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SelectType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="StringConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Table.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TableFilter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tokenizer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="TokenType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Trace.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Transaction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="User.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="log4net.config" />
+    <EmbeddedResource Include="Provider\SharpHsqlCommand.resx">
+      <DependentUpon>SharpHsqlCommand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Provider\SharpHsqlCommandBuilder.resx">
+      <DependentUpon>SharpHsqlCommandBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Provider\SharpHsqlConnection.resx">
+      <DependentUpon>SharpHsqlConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Provider\SharpHsqlReader.resx">
+      <DependentUpon>SharpHsqlReader.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="KeyPair.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>copy "$(ProjectDir)log4net.config" "$(TargetDir)"</PostBuildEvent>
+  </PropertyGroup>
+</Project>

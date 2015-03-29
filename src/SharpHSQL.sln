@@ -1,0 +1,76 @@
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHsql", "SharpHSQL\SharpHsql.csproj", "{B98F7374-FF00-4BB7-93EC-39763A76BFFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hsqltest", "hsqltest\hsqltest.csproj", "{264A06D6-76FB-4652-8619-9B651DF182D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Providertest", "Providertest\Providertest.csproj", "{8388AFBC-8E76-45B2-AA2D-F49A360747AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalFunction", "ExternalFunction\ExternalFunction.csproj", "{7E430EE6-B587-428A-9FB9-C1269A3FE4FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PocketSharpHsql", "SharpHSQL\PocketSharpHsql.csproj", "{B1247008-F987-4C90-9EA1-A8FA1EDA3799}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "pocketSample", "pocketSample\pocketSample.csproj", "{4B25AF47-5ADA-43C8-A96B-5F5F7A8410C4}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs07.codeplex.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ExternalFunction\\ExternalFunction.csproj
+		SccProjectName1 = ExternalFunction
+		SccLocalPath1 = ExternalFunction
+		SccProjectUniqueName2 = hsqltest\\hsqltest.csproj
+		SccProjectName2 = hsqltest
+		SccLocalPath2 = hsqltest
+		SccProjectUniqueName3 = pocketSample\\pocketSample.csproj
+		SccProjectName3 = pocketSample
+		SccLocalPath3 = pocketSample
+		SccProjectUniqueName4 = Providertest\\Providertest.csproj
+		SccProjectName4 = Providertest
+		SccLocalPath4 = Providertest
+		SccProjectUniqueName5 = SharpHSQL\\PocketSharpHsql.csproj
+		SccProjectName5 = SharpHSQL
+		SccLocalPath5 = SharpHSQL
+		SccProjectUniqueName6 = SharpHSQL\\SharpHsql.csproj
+		SccProjectName6 = SharpHSQL
+		SccLocalPath6 = SharpHSQL
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B98F7374-FF00-4BB7-93EC-39763A76BFFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B98F7374-FF00-4BB7-93EC-39763A76BFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{264A06D6-76FB-4652-8619-9B651DF182D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{264A06D6-76FB-4652-8619-9B651DF182D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{264A06D6-76FB-4652-8619-9B651DF182D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{264A06D6-76FB-4652-8619-9B651DF182D5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8388AFBC-8E76-45B2-AA2D-F49A360747AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8388AFBC-8E76-45B2-AA2D-F49A360747AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8388AFBC-8E76-45B2-AA2D-F49A360747AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8388AFBC-8E76-45B2-AA2D-F49A360747AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E430EE6-B587-428A-9FB9-C1269A3FE4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E430EE6-B587-428A-9FB9-C1269A3FE4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E430EE6-B587-428A-9FB9-C1269A3FE4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E430EE6-B587-428A-9FB9-C1269A3FE4FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1247008-F987-4C90-9EA1-A8FA1EDA3799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1247008-F987-4C90-9EA1-A8FA1EDA3799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1247008-F987-4C90-9EA1-A8FA1EDA3799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1247008-F987-4C90-9EA1-A8FA1EDA3799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1247008-F987-4C90-9EA1-A8FA1EDA3799}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{4B25AF47-5ADA-43C8-A96B-5F5F7A8410C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B25AF47-5ADA-43C8-A96B-5F5F7A8410C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B25AF47-5ADA-43C8-A96B-5F5F7A8410C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B25AF47-5ADA-43C8-A96B-5F5F7A8410C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B25AF47-5ADA-43C8-A96B-5F5F7A8410C4}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
+	EndGlobalSection
+EndGlobal
