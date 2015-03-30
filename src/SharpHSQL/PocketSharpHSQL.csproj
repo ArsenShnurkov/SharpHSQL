@@ -1,8 +1,7 @@
-﻿<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.21022</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B1247008-F987-4C90-9EA1-A8FA1EDA3799}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -70,7 +69,6 @@
     </ConfigurationOverrideFile>
     <DefineConstants>POCKETPC;</DefineConstants>
     <DocumentationFile>PocketSharpSQL.xml</DocumentationFile>
-    <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
@@ -185,45 +183,6 @@
     <Compile Include="Provider\CommandBuilderBehavior.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Provider\SharpHSQLCommand.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLCommandBuilder.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLConnection.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLConnectionString.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLDataAdapter.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLError.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLErrorCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLEvents.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLException.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLParameter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLParameterCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLReader.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHSQLTransaction.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Record.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -267,6 +226,45 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="User.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlCommandBuilder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlConnectionString.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlDataAdapter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlError.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlErrorCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlParameter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlParameterCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlTransaction.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

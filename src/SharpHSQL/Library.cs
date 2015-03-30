@@ -714,7 +714,7 @@ namespace SharpHsql
 				return d;
 			}
 
-			string s = d.ToString();
+			string s = string.Format(CultureInfo.InvariantCulture.NumberFormat, "{0}", d);
 
 			int len = s.Length;
 
@@ -741,7 +741,7 @@ namespace SharpHsql
 				s += "9";
 			}
 
-			return Double.Parse(s);
+			return Double.Parse(s, CultureInfo.InvariantCulture.NumberFormat);
 		}
 
 		public static double Cot(double d) 

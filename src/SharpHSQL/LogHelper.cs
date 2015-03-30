@@ -12,7 +12,7 @@ using System.IO;
 #if !POCKETPC
 using log4net;
 using log4net.Config;
-using log4net.spi;
+using log4net.Core;
 #endif
 #endregion
 
@@ -256,17 +256,20 @@ namespace SharpHsql
 			switch(exceptionTpe)
 			{
 				case LogEntryType.Audit:
-					if(Log.Logger.IsEnabledFor(Level.NOTICE))
-						Log.Logger.Log(callertype.FullName, Level.NOTICE, 
-							InternalFormattedMessage(message, exception, callertype.Assembly), null);
+					if (Log.Logger.IsEnabledFor(Level.Notice))
+					{
+						Log.Logger.Log(callertype, Level.Notice, 
+						InternalFormattedMessage(message, exception, callertype.Assembly), null);
+					}
 					else
+                    {
 						//fallback log
 						#if !POCKETPC
 						EventLogHelper.WriteLogEntry(InternalFormattedMessage(message, exception, callertype.Assembly), EventLogEntryType.SuccessAudit);
 						#else
 						System.Diagnostics.Debug.WriteLine( InternalFormattedMessage(message, exception, callertype.Assembly), "SuccessAudit");
 						#endif
-						
+                    }	
 					break;					
 				case LogEntryType.Error:
 					if(Log.IsErrorEnabled)

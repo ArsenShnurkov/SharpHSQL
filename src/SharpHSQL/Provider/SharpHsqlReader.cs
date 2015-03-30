@@ -538,9 +538,9 @@ namespace System.Data.Hsql
 
 				DataRow row = schema.NewRow();
 				row["ColumnName"] = column;
-				row["Ordinal"] = i;
+				row["ColumnOrdinal"] = i;
 
-				row["Size"] = 0;
+				row["ColumnSize"] = 0;
 				row["ProviderType"] = _rs.Type[i];
 				row["DataType"] = GetDataType(_rs.Type[i]);
 				row["AllowDBNull"] = col.IsNullable;
@@ -577,8 +577,8 @@ namespace System.Data.Hsql
 				}
 				row["IsReadOnly"] = false;
 
-				row["Precision"] = 0;
-				row["Scale"] = 0;
+				row["NumericPrecision"] = 0;
+				row["NumericScale"] = 0;
 
 				row["BaseServerName"] = null;
 				row["BaseCatalogName"] = db.Name;

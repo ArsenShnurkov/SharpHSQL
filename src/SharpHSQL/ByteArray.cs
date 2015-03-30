@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
 #endregion
 
 #region License

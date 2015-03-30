@@ -6,6 +6,8 @@ using System.Text;
 using System.Xml;
 using System.Collections;
 using SharpHsql;
+using System.Data.Common;
+using System.Globalization;
 #endregion
 
 #region License
@@ -319,6 +321,7 @@ namespace System.Data.Hsql
 
 			ResolveParameters();
 
+			
 			_result = _connection.Execute( _commandText );
 
 			return new SharpHsqlReader( this );
@@ -587,6 +590,8 @@ namespace System.Data.Hsql
 					return "'" + ((Guid)value).ToString("N") + "'";
 				case "DateTime":
 					return "'" + ((DateTime)value).ToString("yyyy.MM.dd HH:mm:ss.fffffff") + "'";
+				case "Double":
+					return string.Format(CultureInfo.InvariantCulture.NumberFormat, "{0}", value);
 				case "String":
 				case "Char":
 					return "'" + value.ToString().Replace('\'', '´') + "'";

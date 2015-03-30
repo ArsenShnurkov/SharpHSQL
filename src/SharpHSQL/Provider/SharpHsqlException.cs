@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Text;
+using System.Runtime.Serialization;
 #endregion
 
 #region License

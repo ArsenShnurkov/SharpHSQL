@@ -163,6 +163,15 @@ namespace SharpHsql
 
 				return t;
 			} 
+			else if (name.Equals("SYSTEM_DATABASES")) 
+			{
+				Table t = CreateTable(name);
+
+				t.AddColumn("DATABASE", ColumnType.VarChar);
+				t.CreatePrimaryKey();
+
+				return t;
+			} 
 			else if (name.Equals("SYSTEM_TABLETYPES")) 
 			{
 				Table t = CreateTable(name);

@@ -378,7 +378,8 @@ namespace SharpHsql
 
 				while (true) 
 				{
-					vcolumns.Add(tTokenizer.GetString());
+					string columnName = tTokenizer.GetString ();
+					vcolumns.Add(columnName);
 
 					i++;
 					token = tTokenizer.GetString();

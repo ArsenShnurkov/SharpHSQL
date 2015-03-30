@@ -292,7 +292,7 @@ namespace SharpHsql
 				} 
 				else if (iType == TokenType.FLOAT) 
 				{
-					return Double.Parse(sToken);
+					return Double.Parse(sToken, CultureInfo.InvariantCulture.NumberFormat);
 				}
 
 				return sToken;

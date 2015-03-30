@@ -921,8 +921,10 @@ namespace SharpHsql
 
 			if (sToken.Equals("TABLES"))
 			{
+				r.Table[0] = "SYSTEM_TABLES";
+				r.Label[0] = "TABLE_NAME";
 				System.Collections.ArrayList al = channel.Database.Tables;
-				r.Label[0]="TABLE";
+				//r.Label[0] = "TABLE";
 				r.Type[0] = ColumnType.VarChar;
 				for(int x=0;x<al.Count;x++)
 				{
@@ -935,7 +937,8 @@ namespace SharpHsql
 			}
 			else if (sToken.Equals("DATABASES"))
 			{
-				r.Label[0]="DATABASE";
+				r.Table[0] = "SYSTEM_DATABASES";
+				r.Label[0] = "DATABASE";
 				r.Type[0] = ColumnType.VarChar;
 
 				System.IO.DirectoryInfo di = new 

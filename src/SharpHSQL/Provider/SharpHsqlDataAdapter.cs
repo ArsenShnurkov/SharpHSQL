@@ -214,6 +214,28 @@ namespace System.Data.Hsql
 
 		#endregion
 
+        #region IDbDataAdapter
+        IDbCommand IDbDataAdapter.DeleteCommand {
+            get { return DeleteCmd; }
+            set { throw new NotImplementedException (); }
+        }
+
+        IDbCommand IDbDataAdapter.InsertCommand {
+            get { return InsertCmd; }
+            set { throw new NotImplementedException (); }
+        }
+
+        IDbCommand IDbDataAdapter.SelectCommand {
+            get { return SelectCmd; }
+            set { throw new NotImplementedException (); }
+        }
+
+        IDbCommand IDbDataAdapter.UpdateCommand {
+            get { return UpdateCmd; }
+            set { throw new NotImplementedException (); }
+        }
+        #endregion
+
 		#region Dispose Methods
 
 		/// <summary>

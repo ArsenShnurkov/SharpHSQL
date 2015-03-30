@@ -4,6 +4,7 @@ using System.Data;
 using System.Collections;
 using System.IO;
 using System.Text;
+using System.Globalization;
 #endregion
 
 #region License
@@ -960,10 +961,10 @@ namespace SharpHsql
 
 				case ColumnType.Float:
 				case ColumnType.Real:
-					return Single.Parse(source);
+					return Single.Parse(source, CultureInfo.InvariantCulture.NumberFormat);
 
 				case ColumnType.DbDouble:
-					return Double.Parse(source);
+					return Double.Parse(source, CultureInfo.InvariantCulture.NumberFormat);
 
 				case ColumnType.VarCharIgnoreCase:
 				case ColumnType.VarChar:
@@ -978,7 +979,7 @@ namespace SharpHsql
 
 				case ColumnType.Numeric:
 				case ColumnType.DbDecimal:
-					return Decimal.Parse(source);
+					return Decimal.Parse(source, CultureInfo.InvariantCulture.NumberFormat);
 
 				case ColumnType.Bit:
 					return Boolean.Parse(source);
@@ -1077,14 +1078,21 @@ namespace SharpHsql
 				case ColumnType.Binary:
 				case ColumnType.VarBinary:
 				case ColumnType.LongVarBinary:
-					return "'" + obj.ToString() + "'";
+				{
+					// we suppose that obj is ByteArray, which have ToString method
+					// but defacto 'obj' is "System.Byte[]"
+					if (obj is ByteArray)
+					return "'" + obj.ToString () + "'";
+					else
+					return "'" + (new ByteArray((byte[])obj)).ToString () + "'";
+				}
 
 				case ColumnType.Real:
 				case ColumnType.DbDouble:
 				case ColumnType.DbDecimal:
 				case ColumnType.Float:
 				case ColumnType.Numeric:
-					return "'" + obj.ToString() + "'";
+					return string.Format(CultureInfo.InvariantCulture.NumberFormat, "{0}", obj);
 
 				case ColumnType.VarCharIgnoreCase:
 				case ColumnType.VarChar:
