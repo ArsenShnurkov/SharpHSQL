@@ -8,17 +8,17 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("SharpHsql")]
+[assembly: AssemblyTitle("SharpHSQL")]
 [assembly: AssemblyDescription("C# port of Java HSQLDB")]
 #if DEBUG 
 [assembly: AssemblyConfiguration("DEBUG")]
 #else
 [assembly: AssemblyConfiguration("RELEASE")]
 #endif
-[assembly: AssemblyCompany("NTS")]
-[assembly: AssemblyProduct("SharpHsql")]
-[assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("All trademarks are property of their respective holders.")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SharpHSQL")]
+[assembly: AssemblyCopyright("Mark Tutt")]
+[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
 
 //
@@ -32,9 +32,9 @@ using System.Runtime.CompilerServices;
 // You can specify all the value or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
-[assembly: AssemblyVersion("1.0.3.3")]
+[assembly: AssemblyVersion("4.0.0.0")]
 #if !POCKETPC
-[assembly: AssemblyFileVersion("1.0.3.3")]
+[assembly: AssemblyFileVersion("4.0.0.0")]
 #endif
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 

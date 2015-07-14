@@ -3,6 +3,9 @@ using System;
 using System.ComponentModel;
 using System.Collections;
 using System.Diagnostics;
+using System.Data.Common;
+
+
 #endregion
 
 #region License
@@ -54,7 +57,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlTransaction"/>
 	/// <seealso cref="SharpHsqlDataAdapter"/>
 	/// </summary>
-	public class SharpHsqlCommandBuilder : Component
+	public class SharpHsqlCommandBuilder : DbCommandBuilder
 	{
 		#region Constructors
 
@@ -245,5 +248,27 @@ namespace System.Data.Hsql
 			components = new System.ComponentModel.Container();
 		}
 		#endregion
+		protected override void ApplyParameterInfo (DbParameter parameter, DataRow row, StatementType statementType, bool whereClause)
+		{
+			throw new NotImplementedException ();
+		}
+		
+		protected override string GetParameterName (string parameterName)
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected override string GetParameterName (int parameterOrdinal)
+		{
+			throw new NotImplementedException ();
+		}
+		protected override string GetParameterPlaceholder (int parameterOrdinal)
+		{
+			throw new NotImplementedException ();
+		}
+		protected override void SetRowUpdatingHandler (DbDataAdapter adapter)
+		{
+			throw new NotImplementedException ();
+		}
 	}
 }

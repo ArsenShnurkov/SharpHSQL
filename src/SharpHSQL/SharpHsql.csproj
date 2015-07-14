@@ -91,7 +91,9 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+      <Package>log4net-1.2.11</Package>
     </Reference>
+    <Reference Include="System.Data.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Access.cs">
@@ -190,9 +192,6 @@
     <Compile Include="Provider\SharpHsqlConnection.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Provider\SharpHsqlConnectionString.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Provider\SharpHsqlDataAdapter.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -280,6 +279,10 @@
     <EmbeddedResource Include="Provider\SharpHsqlReader.resx">
       <DependentUpon>SharpHsqlReader.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="Provider\SharpHsqlConnectionStringBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider\SharpHsqlDbProviderFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

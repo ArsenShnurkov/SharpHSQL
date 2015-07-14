@@ -50,7 +50,7 @@ namespace System.Data.Hsql
 	/// Parameter class for Hsql ADO.NET data provider.
 	/// <seealso cref="SharpHsqlCommand"/>
 	/// </summary>
-	public sealed class SharpHsqlParameter : IDbDataParameter, ICloneable
+	public sealed class SharpHsqlParameter : DbParameter, IDbDataParameter, ICloneable
 	{
 		#region Constructors
 
@@ -223,7 +223,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the parameter size.
 		/// </summary>
-		public int Size
+		public override int Size
 		{
 			get
 			{
@@ -243,7 +243,7 @@ namespace System.Data.Hsql
 		/// Get or set the parameter direction.
 		/// <seealso cref="System.Data.ParameterDirection"/>
 		/// </summary>
-		public System.Data.ParameterDirection Direction
+		public override System.Data.ParameterDirection Direction
 		{
 			get
 			{
@@ -258,7 +258,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the parameter <see cref="DbType"/>.
 		/// </summary>
-		public DbType DbType
+		public override DbType DbType
 		{
 			get
 			{
@@ -273,7 +273,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the parameter value.
 		/// </summary>
-		public object Value
+		public override object Value
 		{
 			get
 			{
@@ -288,7 +288,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the parameter nullability.
 		/// </summary>
-		public bool IsNullable
+		public override  bool IsNullable
 		{
 			get
 			{
@@ -303,7 +303,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the parameter <see cref="DataRowVersion"/>.
 		/// </summary>
-		public DataRowVersion SourceVersion
+		public override DataRowVersion SourceVersion
 		{
 			get
 			{
@@ -318,7 +318,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the parameter name.
 		/// </summary>
-		public string ParameterName
+		public override string ParameterName
 		{
 			get
 			{
@@ -333,7 +333,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the parameter source column name.
 		/// </summary>
-		public string SourceColumn
+		public override  string SourceColumn
 		{
 			get
 			{
@@ -461,5 +461,10 @@ namespace System.Data.Hsql
 		}
 
 		#endregion
+		public override bool SourceColumnNullMapping {
+			get;
+			set;
+		}		
+		public override void ResetDbType (){}
 	}
 }

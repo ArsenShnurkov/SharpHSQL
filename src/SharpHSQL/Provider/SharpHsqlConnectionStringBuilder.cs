@@ -51,14 +51,14 @@ namespace System.Data.Hsql
 	/// <summary>
 	/// Helper static class for building SharpHsql connection strings.
 	/// </summary>
-	internal sealed class SharpHsqlConnectionString
+	internal sealed class SharpHsqlConnectionStringBuilder : DbConnectionStringBuilder
 	{
 		#region Constructors
 
 		/// <summary>
 		/// Static constructor.
 		/// </summary>
-		static SharpHsqlConnectionString()
+		static SharpHsqlConnectionStringBuilder()
 		{
 			invariantComparer = CultureInfo.InvariantCulture.CompareInfo;
 		}
@@ -68,7 +68,7 @@ namespace System.Data.Hsql
 		/// using a connection string.
 		/// </summary>
 		/// <param name="connstring"></param>
-		internal SharpHsqlConnectionString( string connstring )
+		internal SharpHsqlConnectionStringBuilder( string connstring )
 		{
 			if( connstring == null || connstring.Length == 0 || connstring.Trim().Length == 0 )
 				throw new ArgumentNullException("connstring");

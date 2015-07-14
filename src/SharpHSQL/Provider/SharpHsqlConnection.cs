@@ -4,6 +4,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Xml;
 using SharpHsql;
+using System.Data.Common;
+
+
 #endregion
 
 #region License
@@ -55,7 +58,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlTransaction"/>
 	/// <seealso cref="SharpHsqlDataAdapter"/>
 	/// </summary>
-	public sealed class SharpHsqlConnection : Component, IDbConnection, ICloneable
+	public sealed class SharpHsqlConnection : DbConnection, IDbConnection, ICloneable
 	{
 		#region Constructors
 
@@ -76,7 +79,15 @@ namespace System.Data.Hsql
 			GC.SuppressFinalize(this);
 			ConnectionString = connectionString;
 		}
-
+		
+		public override string DataSource {
+			get { return String.Empty; }
+		}
+		[Browsable (false)]
+		public override string ServerVersion {
+			get { return String.Empty; }
+		}
+		
 		/// <summary>
 		/// Private constructor used internally.
 		/// </summary>
@@ -95,13 +106,13 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the connection string.
 		/// </summary>
-		public string ConnectionString
+		public override string ConnectionString
 		{
 			get { return _connString;  }
 			set { 
 				_connString = value; 
 
-				_constr = new SharpHsqlConnectionString( _connString );
+				_constr = new SharpHsqlConnectionStringBuilder( _connString );
 				_database = _constr.Database;
 				_user = _constr.UserName;
 				_pwd = _constr.UserPassword;
@@ -122,7 +133,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get the current database name.
 		/// </summary>
-		public string Database 
+		public override string Database 
 		{
 			get 
 			{
@@ -133,7 +144,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get the current connection state.
 		/// </summary>
-		public ConnectionState State 
+		public override ConnectionState State 
 		{
 			get { return _connState; }
 		}
@@ -148,6 +159,11 @@ namespace System.Data.Hsql
 			return BeginTransaction(IsolationLevel.ReadCommitted);
 		}
 
+		protected override DbTransaction BeginDbTransaction (IsolationLevel isolationLevel)
+		{
+			return this.BeginTransaction(isolationLevel);
+		}
+		
 		/// <summary>
 		/// Starts a new transaction using the default isolation level (ReadCommitted).
 		/// <seealso cref="IsolationLevel"/>
@@ -175,7 +191,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="level"></param>
 		/// <returns>The new <see cref="SharpHsqlTransaction"/> object.</returns>
-		public SharpHsqlTransaction BeginTransaction(IsolationLevel level)
+		public new SharpHsqlTransaction BeginTransaction(IsolationLevel level)
 		{
 			if (this._connState == ConnectionState.Closed)
 			{
@@ -197,7 +213,7 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <remarks>Not currently supported.</remarks>
 		/// <param name="databaseName"></param>
-		public void ChangeDatabase(string databaseName)
+		public override void ChangeDatabase(string databaseName)
 		{
 			throw new InvalidOperationException("SharpHSql Provider does not support this function");
 		}
@@ -205,7 +221,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Closes the current connection.
 		/// </summary>
-		public void Close()
+		public override void Close()
 		{
 			switch (this._connState)
 			{
@@ -246,7 +262,10 @@ namespace System.Data.Hsql
 		{
 			return new SharpHsqlCommand(String.Empty, this);
 		}
-
+		protected override DbCommand CreateDbCommand ()
+		{
+			return CreateCommand ();
+		}
 		/// <summary>
 		/// Creates a new SharpHsqlCommand object.
 		/// </summary>
@@ -259,7 +278,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Open the current connection.
 		/// </summary>
-		public void Open()
+		public override void Open()
 		{
 			switch (this._connState)
 			{
@@ -504,7 +523,7 @@ namespace System.Data.Hsql
 
 		private string				_user = String.Empty;
 		private string				_pwd = String.Empty;
-		private SharpHsqlConnectionString _constr;
+		private SharpHsqlConnectionStringBuilder _constr;
 		private bool _hidePasswordPwd;
 		private WeakReference _localTransaction = null;
 		private WeakReference _reader;

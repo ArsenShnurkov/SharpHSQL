@@ -58,7 +58,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlParameter"/>
 	/// <seealso cref="SharpHsqlTransaction"/>
 	/// </summary>
-	public sealed class SharpHsqlCommand : Component, IDbCommand, ICloneable, IDisposable
+	public sealed class SharpHsqlCommand : DbCommand, IDbCommand, ICloneable, IDisposable
 	{
 		#region Constructors
 
@@ -98,7 +98,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Command text to be executed.
 		/// </summary>
-		public string CommandText
+		public override string CommandText
 		{
 			get { return _commandText;  }
 			set { _commandText = value; }
@@ -107,7 +107,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set Execution timeout for the command.
 		/// </summary>
-		public int CommandTimeout
+		public override int CommandTimeout
 		{
 			get { return _commandTimeout; }
 			set { _commandTimeout = value; }
@@ -116,7 +116,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the Type of the current command.
 		/// </summary>
-		public CommandType CommandType
+		public override CommandType CommandType
 		{
 			get { return _commandType; }
 			set { _commandType = value; }
@@ -125,10 +125,28 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the Connection being used by the current command.
 		/// </summary>
-		public SharpHsqlConnection Connection
+		public new SharpHsqlConnection Connection
 		{
 			get { return _connection;  }
 			set { _connection = value; }
+		}
+		
+		/// <summary>
+		/// Get or set the Connection being used by the current command.
+		/// </summary>
+		protected override DbConnection DbConnection
+		{
+			get { return _connection;  }
+			set { _connection = (SharpHsqlConnection) value; }
+		}
+		
+		/// <summary>
+		/// Get or set the Connection being used by the current command.
+		/// </summary>
+		protected override DbTransaction DbTransaction
+		{
+			get { return _transaction;  }
+			set { _transaction = (SharpHsqlTransaction) value; }
 		}
 
 		/// <summary>
@@ -144,6 +162,18 @@ namespace System.Data.Hsql
 		/// Command parameter collection.
 		/// </summary>
 		IDataParameterCollection IDbCommand.Parameters
+		{
+			get
+			{
+				if (this._parameters == null)
+				{
+					this._parameters = new SharpHsqlParameterCollection(this);
+				}
+				return this._parameters;
+			}
+		}
+		
+		protected override DbParameterCollection DbParameterCollection
 		{
 			get
 			{
@@ -221,7 +251,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the <see cref="UpdateRowSource"/> for the command.
 		/// </summary>
-		public UpdateRowSource UpdatedRowSource
+		public override UpdateRowSource UpdatedRowSource
 		{
 			get
 			{
@@ -240,18 +270,23 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Cancels the current operation.
 		/// </summary>
-		public void Cancel()
+		public override void Cancel()
 		{
 			if( _connection == null || _connection.State != ConnectionState.Open )
 				throw new InvalidOperationException("Can't execute if connection is not open.");
 
 		}
 
+		protected override DbParameter CreateDbParameter()
+		{
+			return CreateParameter();
+		}
+		
 		/// <summary>
 		/// Creates and returns a new <see cref="SharpHsqlParameter"/> object.
 		/// </summary>
 		/// <returns></returns>
-		public SharpHsqlParameter CreateParameter()
+		public new SharpHsqlParameter CreateParameter()
 		{
 			return new SharpHsqlParameter();
 		}
@@ -269,7 +304,7 @@ namespace System.Data.Hsql
 		/// Executes a query with no results.
 		/// </summary>
 		/// <returns></returns>
-		public int ExecuteNonQuery()
+		public override int ExecuteNonQuery()
 		{
 			this.ValidateCommand("ExecuteNonQuery", true);
 			
@@ -300,12 +335,17 @@ namespace System.Data.Hsql
 		{
 			return ExecuteReader(behavior);
 		}
-
+		
+		protected  override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
+		{
+			return ExecuteReader(behavior);
+		}
+		
 		/// <summary>
 		/// Executes a query returning an <see cref="SharpHsqlReader"/> object.
 		/// </summary>
 		/// <returns></returns>
-		public SharpHsqlReader ExecuteReader()
+		public new SharpHsqlReader ExecuteReader()
 		{
 			return ExecuteReader(CommandBehavior.Default);
 		}
@@ -331,7 +371,7 @@ namespace System.Data.Hsql
 		/// Executes a query returning a single result.
 		/// </summary>
 		/// <returns></returns>
-		public object ExecuteScalar()
+		public override object ExecuteScalar()
 		{
 			this.ValidateCommand("ExecuteScalar", true);
 
@@ -369,7 +409,7 @@ namespace System.Data.Hsql
 		/// Prepare a stored procedure on the database.
 		/// </summary>
 		/// <remarks>Not currently supported.</remarks>
-		public void Prepare()
+		public override void Prepare()
 		{
 			throw new InvalidOperationException("SharpHSql Provider does not support this function");
 		}
@@ -729,7 +769,7 @@ namespace System.Data.Hsql
 			}
 		}	
 		#endregion
-
+		
 		#region Internal Fields
 
 		/// <summary>
@@ -762,5 +802,11 @@ namespace System.Data.Hsql
 		}
 
 		#endregion
+		
+		private bool _visible = true;
+		public override bool DesignTimeVisible {
+			get { return _visible; }
+			set { _visible = value; }
+		}
 	}
 }
