@@ -207,6 +207,10 @@ namespace System.Data.Hsql
 			return (Int32)_current.Data[i];
 		}
 		
+		/// <summary>
+		/// Gets the enumerator.
+		/// </summary>
+		/// <returns>The enumerator.</returns>
 		public override IEnumerator GetEnumerator ()
 		{
 			throw new NotImplementedException ();
@@ -226,10 +230,16 @@ namespace System.Data.Hsql
 					return _current.Data[ index ];
 			}
 		}
-		public override object this [int ordinal] {
+		
+		/// <summary>
+		/// Gets the <see cref="System.Data.Hsql.SharpHsqlReader"/> with the specified ordinal.
+		/// </summary>
+		/// <param name="ordinal">Ordinal.</param>
+		public override object this [int ordinal]
+		{
 			get
 			{
-				throw new NotImplementedException ();
+				return GetValue(ordinal);
 			}
 		}
 
