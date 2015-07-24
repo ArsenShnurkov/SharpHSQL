@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Providertest", "Providertes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalFunction", "ExternalFunction\ExternalFunction.csproj", "{7E430EE6-B587-428A-9FB9-C1269A3FE4FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpHsql.Linq", "SharpHsql.Linq\SharpHsql.Linq.csproj", "{DEAFCB16-9BC4-4D3A-A850-C3B9423026C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{B98F7374-FF00-4BB7-93EC-39763A76BFFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B98F7374-FF00-4BB7-93EC-39763A76BFFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B98F7374-FF00-4BB7-93EC-39763A76BFFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEAFCB16-9BC4-4D3A-A850-C3B9423026C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEAFCB16-9BC4-4D3A-A850-C3B9423026C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEAFCB16-9BC4-4D3A-A850-C3B9423026C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEAFCB16-9BC4-4D3A-A850-C3B9423026C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0

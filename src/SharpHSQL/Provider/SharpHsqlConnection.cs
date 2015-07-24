@@ -5,6 +5,7 @@ using System.Data;
 using System.Xml;
 using SharpHsql;
 using System.Data.Common;
+using System.Collections.Generic;
 
 
 #endregion
@@ -530,5 +531,35 @@ namespace System.Data.Hsql
 		private Channel _channel;
 
 		#endregion
+		
+		/// <summary>
+		/// Gets the db provider factory.
+		/// </summary>
+		/// <value>The db provider factory.</value>
+		protected /*internal*/ override DbProviderFactory DbProviderFactory
+		{
+			get
+			{
+				return SharpHsqlDbProviderFactory.Instance;
+			}
+		}
+		public bool ParseViaFramework
+		{
+			get { return true; }
+		}
+		static public SortedList<string, string> ParseConnectionString(string connStr)
+		{
+			var list = new SortedList<string, string> ();
+			return list;
+		}
+		static public SortedList<string, string> ParseConnectionStringViaFramework(string connStr, bool f)
+		{
+			var list = new SortedList<string, string> ();
+			return list;
+		}
+		static public string FindKey(SortedList<string, string> opts, string keyName, string specification)
+		{
+			return string.Empty;
+		}
 	}
 }

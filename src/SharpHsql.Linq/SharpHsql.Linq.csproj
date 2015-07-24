@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEAFCB16-9BC4-4D3A-A850-C3B9423026C5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>System.Data.Hsql.Linq</RootNamespace>
+    <AssemblyName>SharpHsql.Linq</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG; TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\..\ConnectionTest-EF.git\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\..\ConnectionTest-EF.git\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharpHsqlProviderServices.cs" />
+    <Compile Include="SharpHsqlProviderManifest.cs" />
+    <Compile Include="MetadataHelpers.cs" />
+    <Compile Include="ISharpHsqlSchemaExtensions.cs" />
+    <Compile Include="SharpHsqlDateFormats.cs" />
+    <Compile Include="SQL_Generation\SqlGenerator.cs" />
+    <Compile Include="SQL_Generation\SqlBuilder.cs" />
+    <Compile Include="SQL_Generation\SqlWriter.cs" />
+    <Compile Include="SQL_Generation\SqlSelectStatement.cs" />
+    <Compile Include="SQL_Generation\ISqlFragment.cs" />
+    <Compile Include="SQL_Generation\SymbolTable.cs" />
+    <Compile Include="SQL_Generation\Symbol.cs" />
+    <Compile Include="SQL_Generation\KeyToListMap.cs" />
+    <Compile Include="SQL_Generation\InternalBase.cs" />
+    <Compile Include="SQL_Generation\TopClause.cs" />
+    <Compile Include="SQL_Generation\SkipClause.cs" />
+    <Compile Include="DmlSqlGenerator.cs" />
+    <Compile Include="SQL_Generation\JoinSymbol.cs" />
+    <Compile Include="SQL_Generation\SymbolPair.cs" />
+    <Compile Include="SQL_Generation\StringUtil.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SharpHsqlConvert.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\SharpHSQL\SharpHsql.csproj">
+      <Project>{B98F7374-FF00-4BB7-93EC-39763A76BFFF}</Project>
+      <Name>SharpHsql</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Resources.resx">
+      <CustomToolNamespace>Properties</CustomToolNamespace>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SQL_Generation\" />
+  </ItemGroup>
+</Project>

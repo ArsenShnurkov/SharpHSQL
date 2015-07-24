@@ -91,7 +91,6 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="log4net">
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-      <Package>log4net-1.2.11</Package>
     </Reference>
     <Reference Include="System.Data.Linq" />
   </ItemGroup>
@@ -306,4 +305,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Provider_EF\" />
+  </ItemGroup>
 </Project>
