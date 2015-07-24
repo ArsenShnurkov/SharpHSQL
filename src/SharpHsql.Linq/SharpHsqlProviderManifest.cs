@@ -1,4 +1,6 @@
-﻿namespace System.Data.Hsql.Linq
+﻿using System.Diagnostics;
+
+namespace System.Data.Hsql.Linq
 {
 	using System;
 	using System.Data.Entity.Core;
@@ -31,7 +33,33 @@
 
 		internal static XmlReader GetProviderManifest()
 		{
-			return GetXmlResource("System.Data.SharpHsql.Linq.Resources.SharpHsqlProviderServices.ProviderManifest.xml");
+			return GetXmlResource("System.Data.Hsql.Linq.Resources.SharpHsqlProviderServices.ProviderManifest.xml");
+		}
+
+		private XmlReader GetStoreSchemaMapping()
+		{
+			return GetXmlResource("System.Data.Hsql.Linq.Resources.SharpHsqlProviderServices.StoreSchemaMapping.msl");
+		}
+
+		private XmlReader GetStoreSchemaDescription()
+		{
+			return GetXmlResource("System.Data.Hsql.Linq.Resources.SharpHsqlProviderServices.StoreSchemaDefinition.ssdl");
+		}
+
+		internal static XmlReader GetXmlResource(string resourceName)
+		{
+			var assembly = Assembly.GetExecutingAssembly();
+			Stream stream = assembly.GetManifestResourceStream(resourceName);
+			#if DEBUG
+			if (stream == null) {
+				// http://stackoverflow.com/questions/3068736/cant-load-a-manifest-resource-with-getmanifestresourcestream
+				string[] names = assembly.GetManifestResourceNames ();
+				foreach (var n in names) {
+					Trace.WriteLine (n);
+				}
+			}
+			#endif
+			return XmlReader.Create(stream);
 		}
 
 		/// <summary>
@@ -286,23 +314,6 @@
 			default:
 				throw new NotSupportedException(String.Format("There is no store type corresponding to the EDM type '{0}' of primitive type '{1}'.", edmType, primitiveType.PrimitiveTypeKind));
 			}
-		}
-
-		private XmlReader GetStoreSchemaMapping()
-		{
-			return GetXmlResource("System.Data.SharpHsql.Linq.Resources.SharpHsqlProviderServices.StoreSchemaMapping.msl");
-		}
-
-		private XmlReader GetStoreSchemaDescription()
-		{
-			return GetXmlResource("System.Data.SharpHsql.Linq.Resources.SharpHsqlProviderServices.StoreSchemaDefinition.ssdl");
-		}
-
-		internal static XmlReader GetXmlResource(string resourceName)
-		{
-			Assembly executingAssembly = Assembly.GetExecutingAssembly();
-			Stream stream = executingAssembly.GetManifestResourceStream(resourceName);
-			return XmlReader.Create(stream);
 		}
 
 		private static class TypeHelpers

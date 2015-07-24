@@ -110,7 +110,8 @@
 
 		protected override DbProviderManifest GetDbProviderManifest(string versionHint)
 		{
-			return new SharpHsqlProviderManifest(versionHint);
+			var res = new SharpHsqlProviderManifest(versionHint);
+			return res;
 		}
 
 		/// <summary>
@@ -391,6 +392,21 @@
 		}
 
 		#endregion
+
+		protected override bool DbDatabaseExists (DbConnection connection, int? commandTimeout, StoreItemCollection storeItemCollection)
+		{
+			// throw new NotImplementedException ();
+			return true; // that's because i am lazy to retrieve list of databases and check the name from <b>connection.Database</b>
+			// NpgSql does like this:
+			// https://github.com/npgsql/npgsql/pull/91/files#diff-8eba631855901aefb64b3ab6cafe4489R113
+		}
+		/* // hope default implementation uses previous function
+		protected override bool DbDatabaseExists (DbConnection connection, int? commandTimeout, Lazy<StoreItemCollection> storeItemCollection)
+		{
+			// throw new NotImplementedException ();
+			return true;
+		}
+		*/
 	}
 }
 

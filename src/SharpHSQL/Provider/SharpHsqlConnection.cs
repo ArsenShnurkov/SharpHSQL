@@ -559,7 +559,7 @@ namespace System.Data.Hsql
 		}
 		static public string FindKey(SortedList<string, string> opts, string keyName, string specification)
 		{
-			return string.Empty;
+			return specification;
 		}
 	}
 }

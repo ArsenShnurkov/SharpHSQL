@@ -84,5 +84,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SQL_Generation\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SharpHsqlProviderServices.ProviderManifest.xml" />
+    <EmbeddedResource Include="Resources\SQLiteProviderServices.StoreSchemaDefinition.ssdl" />
+    <EmbeddedResource Include="Resources\SQLiteProviderServices.StoreSchemaMapping.msl" />
   </ItemGroup>
 </Project>
