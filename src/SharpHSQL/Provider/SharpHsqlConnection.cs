@@ -147,8 +147,36 @@ namespace System.Data.Hsql
 		/// </summary>
 		public override ConnectionState State 
 		{
-			get { return _connState; }
+			get
+			{ 
+				string tranID = this.LocalTransaction == null ? "null" : this.LocalTransaction.GetHashCode ().ToString ();
+				Trace.Write (string.Format ("Connection {0}, state={1}, Transaction={2}", this.GetHashCode (), _connState.ToString (), tranID));
+				return _connState; 
+			}
 		}
+
+		StateChangeEventHandler _StateChange;
+		/// <summary>
+		/// StateChange event.
+		/// </summary>
+		public override event StateChangeEventHandler StateChange
+		{
+			add
+			{
+				_StateChange += value;
+			}
+			remove
+			{
+				_StateChange -= value;
+			}
+		}
+
+		private void FireObjectState(ConnectionState original, ConnectionState current)
+		{
+			if( _StateChange != null )
+				_StateChange(this, new StateChangeEventArgs(original, current));
+		}
+
 
 		/// <summary>
 		/// Starts a new transaction using the default isolation level (ReadCommitted).
@@ -298,10 +326,6 @@ namespace System.Data.Hsql
 		/// InfoMessage event.
 		/// </summary>
 		public event SharpHsqlInfoMessageEventHandler InfoMessage;
-		/// <summary>
-		/// StateChange event.
-		/// </summary>
-		public event StateChangeEventHandler StateChange;
 
 		/// <summary>
 		/// Get a clone of the current instance.
@@ -495,12 +519,6 @@ namespace System.Data.Hsql
 				}
 			}
 			this._reader = null;
-		}
-
-		private void FireObjectState(ConnectionState original, ConnectionState current)
-		{
-			if( StateChange != null )
-				StateChange(this, new StateChangeEventArgs(original, current));
 		}
 
 		private void FireInfoMessage( SharpHsqlException ex )
