@@ -117,7 +117,9 @@ namespace SharpHsql
 			WRONG_OUT_PARAMETER = 39,
 			ERROR_IN_FUNCTION = 40,
 			TRIGGER_NOT_FOUND = 41,
-			VARIABLE_NOT_DECLARED = 42;
+			VARIABLE_NOT_DECLARED = 42,
+			FIELD_OF_TABLE_IS_EXPECTED = 43
+		;
 		
 		private static readonly string[]       sDescription = 
 		{
@@ -147,7 +149,8 @@ namespace SharpHsql
 			"S1000 Assert failed", "S1000 External stop request",
 			"S1000 General error", "S1009 Wrong OUT parameter",
 			"S1010 Error in function", "S0002 Trigger not found",
-			"S1000 Variable name not found."
+			"S1000 Variable name not found.",
+			"SH043 Field of table is expected.",
 		};
 
 		#endregion

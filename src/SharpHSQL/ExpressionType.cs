@@ -57,10 +57,6 @@ namespace SharpHsql
 		/// </summary>
 		Value = 1, 
 		/// <summary>
-		/// Database column
-		/// </summary>
-		DatabaseColumn = 2, 
-		/// <summary>
 		/// Database query
 		/// </summary>
 		Query = 3, 
@@ -233,7 +229,23 @@ namespace SharpHsql
 		/// <summary>
 		/// End
 		/// </summary>
-		End = 108
+		End = 108,
+		/// <summary>
+		/// The square bracket left.
+		/// </summary>
+		SquareBracketLeft = 109,
+		/// <summary>
+		/// The square bracket right.
+		/// </summary>
+		SquareBracketRight = 110,
+		/// <summary>
+		/// The dot.
+		/// </summary>
+		Dot = 111,
+		/// <summary>
+		/// Database column
+		/// </summary>
+		DatabaseColumn = 112, 
 	}
 
 	#endregion

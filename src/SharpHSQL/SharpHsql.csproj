@@ -12,7 +12,7 @@
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Flow</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE32Nav30</DefaultTargetSchema>
-    <DelaySign>true</DelaySign>
+    <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
     <RootNamespace>SharpHsql</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
@@ -36,7 +36,7 @@
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
@@ -95,9 +95,6 @@
     <Compile Include="Access.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="AccessType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -116,13 +113,7 @@
     <Compile Include="Column.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ColumnType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Constraint.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ConstraintType.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database.cs">
@@ -161,51 +152,6 @@
     <Compile Include="Node.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Parser.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\CommandBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\CommandBuilderBehavior.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlCommand.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlCommandBuilder.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlConnection.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlDataAdapter.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlError.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlErrorCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlEvents.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlException.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlParameter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlParameterCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlReader.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlTransaction.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Record.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -215,16 +161,10 @@
     <Compile Include="Result.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ResultType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Row.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Select.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SelectType.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StringConverter.cs">
@@ -236,35 +176,10 @@
     <Compile Include="TableFilter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Tokenizer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TokenType.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Transaction.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="User.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="Provider\SharpHsqlCommand.resx">
-      <DependentUpon>SharpHsqlCommand.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Provider\SharpHsqlCommandBuilder.resx">
-      <DependentUpon>SharpHsqlCommandBuilder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Provider\SharpHsqlConnection.resx">
-      <DependentUpon>SharpHsqlConnection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Provider\SharpHsqlReader.resx">
-      <DependentUpon>SharpHsqlReader.cs</DependentUpon>
-    </EmbeddedResource>
-    <Compile Include="Provider\SharpHsqlConnectionStringBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Provider\SharpHsqlDbProviderFactory.cs" />
-    <Compile Include="TracingHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logging\EventLogHelper.cs">
@@ -274,6 +189,91 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logging\Log.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\TracingHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Parsing\Parser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\TokenType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\SelectType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\ResultType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\ConstraintType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\ColumnType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Types\AccessType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\CommandBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\CommandBuilderBehavior.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlCommand.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlCommandBuilder.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlConnection.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlDataAdapter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlError.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlErrorCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlParameter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlParameterCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlReader.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlTransaction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Provider_AdoNet\SharpHsqlCommand.resx">
+      <DependentUpon>SharpHsqlCommand.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Provider_AdoNet\SharpHsqlCommandBuilder.resx">
+      <DependentUpon>SharpHsqlCommandBuilder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Provider_AdoNet\SharpHsqlConnection.resx">
+      <DependentUpon>SharpHsqlConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Provider_AdoNet\SharpHsqlReader.resx">
+      <DependentUpon>SharpHsqlReader.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Provider_AdoNet\SharpHsqlConnectionStringBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlDbProviderFactory.cs" />
+    <Compile Include="Parsing\Tokenizer.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -294,12 +294,11 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="KeyPair.snk" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Provider_EF\" />
     <Folder Include="Logging\" />
+    <Folder Include="Parsing\" />
+    <Folder Include="Types\" />
   </ItemGroup>
 </Project>
