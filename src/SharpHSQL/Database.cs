@@ -67,9 +67,9 @@ namespace SharpHsql
 		/// <param name="name">The database name to open or create.</param>
 		public Database(string name) 
 		{
-			if (Trace.TraceEnabled) 
+			if (TracingHelper.TraceEnabled) 
 			{
-				Trace.Write();
+				TracingHelper.Write();
 			}
 
 			_name = name;
@@ -206,9 +206,9 @@ namespace SharpHsql
 		/// <returns>The Result object.</returns>
 		public Result Execute(string statement, Channel channel) 
 		{
-			if (Trace.TraceEnabled) 
+			if (TracingHelper.TraceEnabled) 
 			{
-				Trace.Write(statement);
+				TracingHelper.Write(statement);
 			}
 
 			Tokenizer c = new Tokenizer(statement);
@@ -224,13 +224,13 @@ namespace SharpHsql
 					_log.cCache.CleanUp();
 				}
 
-				if (Trace.AssertEnabled) 
+				if (TracingHelper.AssertEnabled) 
 				{
-					Trace.Assert(!channel.IsNestedTransaction);
+					TracingHelper.Assert(!channel.IsNestedTransaction);
 				}
 
-				Trace.Check(channel != null, Trace.ACCESS_IS_DENIED);
-				Trace.Check(!_shutDown, Trace.DATABASE_IS_SHUTDOWN);
+				TracingHelper.Check(channel != null, TracingHelper.ACCESS_IS_DENIED);
+				TracingHelper.Check(!_shutDown, TracingHelper.DATABASE_IS_SHUTDOWN);
 
 				while (true) 
 				{
@@ -314,7 +314,7 @@ namespace SharpHsql
 						case ";":
 							continue;
 						default:
-							throw Trace.Error(Trace.UnexpectedToken, sToken);
+							throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 					}
 
 					if( rResult != null && rResult.UpdateCount > updateCount )
@@ -330,7 +330,7 @@ namespace SharpHsql
 			} 
 			catch (Exception e) 
 			{
-				rResult = new Result(Trace.GetMessage(e) + " in statement [" + statement + "]");
+				rResult = new Result(TracingHelper.GetMessage(e) + " in statement [" + statement + "]");
 			} 
 
 			if( rResult != null && rResult.UpdateCount < updateCount )
@@ -447,7 +447,7 @@ namespace SharpHsql
 
 			if (t == null) 
 			{
-				throw Trace.Error(Trace.TABLE_NOT_FOUND, name);
+				throw TracingHelper.Error(TracingHelper.TABLE_NOT_FOUND, name);
 			}
 
 			return t;
@@ -468,7 +468,7 @@ namespace SharpHsql
 
 				if (o.Name.Equals(name)) 
 				{
-					throw Trace.Error(Trace.TABLE_ALREADY_EXISTS, name);
+					throw TracingHelper.Error(TracingHelper.TABLE_ALREADY_EXISTS, name);
 				}
 			}
 
@@ -555,7 +555,7 @@ namespace SharpHsql
 
 					sToken = tokenizer.GetString();
 
-					Trace.Check(sToken.Equals("FOR"), Trace.UnexpectedToken, sToken);
+					TracingHelper.Check(sToken.Equals("FOR"), TracingHelper.UnexpectedToken, sToken);
 
 					sToken = tokenizer.GetString();
 
@@ -574,7 +574,7 @@ namespace SharpHsql
 
 					if (!sToken.Equals("INDEX")) 
 					{
-						throw Trace.Error(Trace.UnexpectedToken, sToken);
+						throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 					}
 
 					string name = tokenizer.GetName();
@@ -610,7 +610,7 @@ namespace SharpHsql
 
 				if (!sToken.Equals(",")) 
 				{
-					throw Trace.Error(Trace.UnexpectedToken, sToken);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 				}
 			}
 
@@ -763,7 +763,7 @@ namespace SharpHsql
 				{
 					identity = true;
 
-					Trace.Check(primarykeycolumn == -1, Trace.SECOND_PRIMARY_KEY,
+					TracingHelper.Check(primarykeycolumn == -1, TracingHelper.SECOND_PRIMARY_KEY,
 						sColumn);
 
 					sToken = tokenizer.GetString();
@@ -773,8 +773,8 @@ namespace SharpHsql
 				if (sToken.Equals("PRIMARY")) 
 				{
 					tokenizer.GetThis("KEY");
-					Trace.Check(identity || primarykeycolumn == -1,
-						Trace.SECOND_PRIMARY_KEY, sColumn);
+					TracingHelper.Check(identity || primarykeycolumn == -1,
+						TracingHelper.SECOND_PRIMARY_KEY, sColumn);
 
 					primarykeycolumn = column;
 					sToken = tokenizer.GetString();
@@ -789,7 +789,7 @@ namespace SharpHsql
 
 				if (!sToken.Equals(",")) 
 				{
-					throw Trace.Error(Trace.UnexpectedToken, sToken);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 				}
 
 				column++;
@@ -846,7 +846,7 @@ namespace SharpHsql
 
 					if (!sToken.Equals(",")) 
 					{
-						throw Trace.Error(Trace.UnexpectedToken, sToken);
+						throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 					}
 				}
 			}
@@ -889,7 +889,7 @@ namespace SharpHsql
 
 				if (!tokenizer.WasLongName) 
 				{
-					throw Trace.Error(Trace.UnexpectedToken, sToken);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 				}
 
 				string table = tokenizer.LongNameFirst;
@@ -907,7 +907,7 @@ namespace SharpHsql
 			} 
 			else 
 			{
-				throw Trace.Error(Trace.UnexpectedToken, sToken);
+				throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 			}
 
 			return new Result();
@@ -977,7 +977,7 @@ namespace SharpHsql
 				string alias = tokenizer.GetString().ToUpper();
 
 				if( !_alias.ContainsKey( alias ) )
-					throw Trace.Error(Trace.UNKNOWN_FUNCTION, alias);
+					throw TracingHelper.Error(TracingHelper.UNKNOWN_FUNCTION, alias);
 
 				string fqn = _alias[alias].ToString();
 
@@ -1037,7 +1037,7 @@ namespace SharpHsql
 				}
 
 				if( theTable == null )
-					throw Trace.Error(Trace.TABLE_NOT_FOUND, t);
+					throw TracingHelper.Error(TracingHelper.TABLE_NOT_FOUND, t);
 
 				r = new Result(7);
 				r.Label[0]="TABLE";
@@ -1072,7 +1072,7 @@ namespace SharpHsql
 			}
 			else
 			{
-				throw Trace.Error(Trace.UnexpectedToken, sToken);
+				throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 			}
 
 			return r;
@@ -1096,7 +1096,7 @@ namespace SharpHsql
 
 			if (!sToken.Equals("ON")) 
 			{
-				throw Trace.Error(Trace.UnexpectedToken, sToken);
+				throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 			}
 
 			string table = c.GetString();
@@ -1238,7 +1238,7 @@ namespace SharpHsql
 						break;
 					}
 
-					throw Trace.Error(Trace.UnexpectedToken, sToken);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 			}
 
 			return new Result();
@@ -1255,7 +1255,7 @@ namespace SharpHsql
 				case "FALSE":
 					return false;
 				default:
-					throw Trace.Error(Trace.UnexpectedToken, sToken);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 			}
 		}
 
@@ -1387,7 +1387,7 @@ namespace SharpHsql
 
 			if (!bExists) 
 			{
-				throw Trace.Error(Trace.TABLE_NOT_FOUND, name);
+				throw TracingHelper.Error(TracingHelper.TABLE_NOT_FOUND, name);
 			}
 		}
 

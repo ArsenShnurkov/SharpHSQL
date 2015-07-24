@@ -168,7 +168,7 @@ namespace SharpHsql
 				return;
 			}
 
-			Trace.Assert(e1.Filter == this, "setCondition");
+			TracingHelper.Assert(e1.Filter == this, "setCondition");
 
 			if (!e2.IsResolved) 
 			{

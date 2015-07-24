@@ -187,8 +187,8 @@ namespace SharpHsql
 			{
 				bool newdata = false;
 
-				if (Trace.TraceEnabled) 
-					Trace.Write();
+				if (TracingHelper.TraceEnabled) 
+					TracingHelper.Write();
 
 				if (!(new FileInfo(sFileProperties)).Exists) 
 				{
@@ -223,7 +223,7 @@ namespace SharpHsql
 				{
 					if (IsAlreadyOpen()) 
 					{
-						throw Trace.Error(Trace.DATABASE_ALREADY_IN_USE);
+						throw TracingHelper.Error(TracingHelper.DATABASE_ALREADY_IN_USE);
 					}
 
 					// recovering after a crash (or forgot to close correctly)
@@ -284,8 +284,8 @@ namespace SharpHsql
 		{	
 			lock( SyncLock )
 			{
-				if (Trace.TraceEnabled) 
-					Trace.Write();
+				if (TracingHelper.TraceEnabled) 
+					TracingHelper.Write();
 
 				if (bReadOnly) 
 					return;
@@ -397,7 +397,7 @@ namespace SharpHsql
 				} 
 				catch (IOException e) 
 				{
-					Trace.Error(Trace.FILE_IO_ERROR, sFileScript);
+					TracingHelper.Error(TracingHelper.FILE_IO_ERROR, sFileScript);
 					LogHelper.Publish( "Unexpected error on Write.", e );
 				}
 				catch( Exception e )
@@ -444,7 +444,7 @@ namespace SharpHsql
 			if ((new FileInfo(file)).Exists) 
 			{
 				// there must be no such file; overwriting not allowed for security
-				throw Trace.Error(Trace.FILE_IO_ERROR, file);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, file);
 			}
 
 			try 
@@ -501,12 +501,12 @@ namespace SharpHsql
 
 				TimeSpan execution = DateTime.Now.Subtract(time);
 
-				if (Trace.TraceEnabled) 
-					Trace.Write((Int64)execution.TotalMilliseconds);
+				if (TracingHelper.TraceEnabled) 
+					TracingHelper.Write((Int64)execution.TotalMilliseconds);
 			} 
 			catch (IOException e) 
 			{
-				Trace.Error(Trace.FILE_IO_ERROR, file + " " + e);
+				TracingHelper.Error(TracingHelper.FILE_IO_ERROR, file + " " + e);
 			}
 		}
 
@@ -535,14 +535,14 @@ namespace SharpHsql
 		{
 			try 
 			{
-				if (Trace.TraceEnabled) 
+				if (TracingHelper.TraceEnabled) 
 				{
-					Trace.Write();
+					TracingHelper.Write();
 				}
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.FILE_IO_ERROR, sFileProperties + " " + e);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, sFileProperties + " " + e);
 			}
 		}
 
@@ -551,8 +551,8 @@ namespace SharpHsql
 		/// </summary>
 		private void Create() 
 		{
-			if (Trace.TraceEnabled) 
-				Trace.Write(sName);
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write(sName);
 
 			XmlTextWriter writer = new XmlTextWriter(sFileProperties, null);
 		    writer.Formatting = Formatting.Indented;
@@ -593,8 +593,8 @@ namespace SharpHsql
 		/// <returns>True if the databse file is open.</returns>
 		private bool IsAlreadyOpen() 
 		{
-			if (Trace.TraceEnabled) 
-				Trace.Write();
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write();
 
 			FileStream fs = null;
 
@@ -647,8 +647,8 @@ namespace SharpHsql
 				Console.WriteLine("Property File Exeception:", e.ToString());
 			}
 
-			if (Trace.TraceEnabled) 
-				Trace.Write();
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write();
 		}
 
 		/// <summary>
@@ -705,8 +705,8 @@ namespace SharpHsql
 
 				CloseProperties();
 
-				if (Trace.TraceEnabled) 
-					Trace.Write();
+				if (TracingHelper.TraceEnabled) 
+					TracingHelper.Write();
 			}
 		}
 
@@ -715,8 +715,8 @@ namespace SharpHsql
 		/// </summary>
 		private void Backup() 
 		{
-			if (Trace.TraceEnabled) 
-				Trace.Write();
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write();
 
 			// if there is no cache file then backup is not necessary
 			if (!(new FileInfo(sFileCache)).Exists) 
@@ -748,13 +748,13 @@ namespace SharpHsql
 
 				TimeSpan execution = DateTime.Now.Subtract(time);
 
-				if (Trace.TraceEnabled) 
-					Trace.Write((Int64)execution.TotalMilliseconds);
+				if (TracingHelper.TraceEnabled) 
+					TracingHelper.Write((Int64)execution.TotalMilliseconds);
 			}
 			catch (Exception e) 
 			{
 				LogHelper.Publish( "Unexpected error on Backup.", e );
-				throw Trace.Error(Trace.FILE_IO_ERROR, sFileBackup);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, sFileBackup);
 			}
 		}
 
@@ -763,8 +763,8 @@ namespace SharpHsql
 		/// </summary>
 		private void RestoreBackup() 
 		{
-			if (Trace.TraceEnabled) 
-				Trace.Write("Not closed last time!");
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write("Not closed last time!");
 
 			if (!(new FileInfo(sFileBackup)).Exists) 
 			{
@@ -799,15 +799,15 @@ namespace SharpHsql
 
 				TimeSpan execution = DateTime.Now.Subtract(time);
 
-				if (Trace.TraceEnabled) 
+				if (TracingHelper.TraceEnabled) 
 				{
-					Trace.Write((Int64)execution.TotalMilliseconds);
+					TracingHelper.Write((Int64)execution.TotalMilliseconds);
 				}
 			} 
 			catch (Exception e) 
 			{
 				LogHelper.Publish( "Unexpected error on RestoreBackup.", e );
-				throw Trace.Error(Trace.FILE_IO_ERROR, sFileBackup);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, sFileBackup);
 			}
 		}
 
@@ -816,8 +816,8 @@ namespace SharpHsql
 		/// </summary>
 		private void OpenScript() 
 		{
-			if (Trace.TraceEnabled) 
-				Trace.Write();
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write();
 
 			try 
 			{
@@ -837,7 +837,7 @@ namespace SharpHsql
 			catch (Exception e) 
 			{
 				LogHelper.Publish( "Unexpected error on OpenScript.", e );
-				Trace.Error(Trace.FILE_IO_ERROR, sFileScript);
+				TracingHelper.Error(TracingHelper.FILE_IO_ERROR, sFileScript);
 			}
 		}
 
@@ -846,8 +846,8 @@ namespace SharpHsql
 		/// </summary>
 		private void CloseScript() 
 		{
-			if (Trace.TraceEnabled) 
-				Trace.Write();
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write();
 
 			try 
 			{
@@ -864,7 +864,7 @@ namespace SharpHsql
 			catch (Exception e) 
 			{
 				LogHelper.Publish( "Unexpected error on CloseScript.", e );
-				Trace.Error(Trace.FILE_IO_ERROR, sFileScript);
+				TracingHelper.Error(TracingHelper.FILE_IO_ERROR, sFileScript);
 			}
 		}
 
@@ -873,8 +873,8 @@ namespace SharpHsql
 		/// </summary>
 		private void RunScript() 
 		{
-			if (Trace.TraceEnabled) 
-				Trace.Write();
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write();
 
 			if (!(new FileInfo(sFileScript)).Exists) 
 				return;
@@ -952,12 +952,12 @@ namespace SharpHsql
 
 				TimeSpan execution = DateTime.Now.Subtract(time);
 
-				if (Trace.TraceEnabled) 
-					Trace.Write((Int64)execution.TotalMilliseconds);
+				if (TracingHelper.TraceEnabled) 
+					TracingHelper.Write((Int64)execution.TotalMilliseconds);
 			} 
 			catch (IOException e) 
 			{
-				throw Trace.Error(Trace.FILE_IO_ERROR, sFileScript + " " + e);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, sFileScript + " " + e);
 			}
 
 			dDatabase.IsReferentialIntegrity = true;
@@ -971,8 +971,8 @@ namespace SharpHsql
 		/// <param name="full"></param>
 		private void WriteScript(bool full) 
 		{
-			if (Trace.TraceEnabled) 
-				Trace.Write();
+			if (TracingHelper.TraceEnabled) 
+				TracingHelper.Write();
 
 			// create script in '.new' file
 			(new FileInfo(sFileScript + ".new")).Delete();

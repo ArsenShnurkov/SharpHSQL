@@ -161,7 +161,7 @@ namespace SharpHsql
 				return (ColumnType)_types[type];
 			}
 			else
-				throw Trace.Error(Trace.WRONG_DATA_TYPE, type);
+				throw TracingHelper.Error(TracingHelper.WRONG_DATA_TYPE, type);
 		}
 
 
@@ -259,7 +259,7 @@ namespace SharpHsql
 					return "UNIQUEIDENTIFIER";
 
 				default:
-					throw Trace.Error(Trace.WRONG_DATA_TYPE, (int)type);
+					throw TracingHelper.Error(TracingHelper.WRONG_DATA_TYPE, (int)type);
 			}
 		}
 
@@ -342,7 +342,7 @@ namespace SharpHsql
 					return DbType.Guid;
 
 				default:
-					throw Trace.Error(Trace.WRONG_DATA_TYPE, (int)type);
+					throw TracingHelper.Error(TracingHelper.WRONG_DATA_TYPE, (int)type);
 			}
 		}
 
@@ -417,7 +417,7 @@ namespace SharpHsql
 					return (longa + longb);
 
 				default:
-					throw Trace.Error(Trace.FUNCTION_NOT_SUPPORTED, (int)type);
+					throw TracingHelper.Error(TracingHelper.FUNCTION_NOT_SUPPORTED, (int)type);
 			}
 		}
 
@@ -485,7 +485,7 @@ namespace SharpHsql
 					return (-(long) obj);
 
 				default:
-					throw Trace.Error(Trace.FUNCTION_NOT_SUPPORTED, (int)type);
+					throw TracingHelper.Error(TracingHelper.FUNCTION_NOT_SUPPORTED, (int)type);
 			}
 		}
 
@@ -554,7 +554,7 @@ namespace SharpHsql
 					return (longa * longb);
 
 				default:
-					throw Trace.Error(Trace.FUNCTION_NOT_SUPPORTED, (int)type);
+					throw TracingHelper.Error(TracingHelper.FUNCTION_NOT_SUPPORTED, (int)type);
 			}
 		}
 
@@ -617,7 +617,7 @@ namespace SharpHsql
 					return ((long)one / (long)two);
 
 				default:
-					throw Trace.Error(Trace.FUNCTION_NOT_SUPPORTED, (int)type);
+					throw TracingHelper.Error(TracingHelper.FUNCTION_NOT_SUPPORTED, (int)type);
 			}
 		}
 
@@ -665,7 +665,7 @@ namespace SharpHsql
 					return ((long)one - (long)two);
 
 				default:
-					throw Trace.Error(Trace.FUNCTION_NOT_SUPPORTED, (int)type);
+					throw TracingHelper.Error(TracingHelper.FUNCTION_NOT_SUPPORTED, (int)type);
 			}
 		}
 
@@ -718,7 +718,7 @@ namespace SharpHsql
 					return (((long) one) + ((long) two));
 
 				default:
-					Trace.Error(Trace.SUM_OF_NON_NUMERIC);
+					TracingHelper.Error(TracingHelper.SUM_OF_NON_NUMERIC);
 					break;
 			}
 
@@ -769,7 +769,7 @@ namespace SharpHsql
 					return ((long) data / count);
 
 				default:
-					Trace.Error(Trace.SUM_OF_NON_NUMERIC);
+					TracingHelper.Error(TracingHelper.SUM_OF_NON_NUMERIC);
 					break;
 			}
 
@@ -932,7 +932,7 @@ namespace SharpHsql
 					break;
 
 				default:
-					throw Trace.Error(Trace.FUNCTION_NOT_SUPPORTED,(int)type);
+					throw TracingHelper.Error(TracingHelper.FUNCTION_NOT_SUPPORTED,(int)type);
 			}
 
 			return (i > 0) ? 1 : (i < 0 ? -1 : 0);
@@ -1005,7 +1005,7 @@ namespace SharpHsql
 					return new Guid(source);
 
 				default:
-					throw Trace.Error(Trace.FUNCTION_NOT_SUPPORTED, (int)type);
+					throw TracingHelper.Error(TracingHelper.FUNCTION_NOT_SUPPORTED, (int)type);
 			}
 		}
 
@@ -1235,7 +1235,7 @@ namespace SharpHsql
 						break;
 
 					default:
-						throw Trace.Error(Trace.WRONG_DATA_TYPE, (int)type);
+						throw TracingHelper.Error(TracingHelper.WRONG_DATA_TYPE, (int)type);
 				}
 
 				data[i] = o;

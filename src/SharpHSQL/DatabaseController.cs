@@ -3,9 +3,6 @@ using System;
 using System.Collections;
 using System.Reflection;
 using System.Threading;
-#if !POCKETPC
-using log4net;
-#endif
 #endregion
 
 namespace SharpHsql

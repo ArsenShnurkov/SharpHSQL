@@ -155,7 +155,7 @@ namespace SharpHsql
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.SERIALIZATION_FAILURE, e.Message);
+				throw TracingHelper.Error(TracingHelper.SERIALIZATION_FAILURE, e.Message);
 			}
 		}
 
@@ -191,7 +191,7 @@ namespace SharpHsql
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.SERIALIZATION_FAILURE, e.Message);
+				throw TracingHelper.Error(TracingHelper.SERIALIZATION_FAILURE, e.Message);
 			}
 		}
 	
@@ -216,7 +216,7 @@ namespace SharpHsql
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.SERIALIZATION_FAILURE, e.Message);
+				throw TracingHelper.Error(TracingHelper.SERIALIZATION_FAILURE, e.Message);
 			}
 		}
 

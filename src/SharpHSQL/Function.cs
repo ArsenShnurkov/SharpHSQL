@@ -87,19 +87,19 @@ namespace SharpHsql
 				{
 					int i = fqn.LastIndexOf('.');
 
-					Trace.Check(i != -1, Trace.UnexpectedToken, fqn);
+					TracingHelper.Check(i != -1, TracingHelper.UnexpectedToken, fqn);
 
 					String classname = fqn.Substring(0, i);
 
 					Type type = thisAssembly.GetType(classname, false);
 
-					Trace.Check(type != null, Trace.ERROR_IN_FUNCTION, fqn);
+					TracingHelper.Check(type != null, TracingHelper.ERROR_IN_FUNCTION, fqn);
 
 					this.name = fqn.Substring(i+1);
 
 					mMethod = type.GetMethod(name);
 
-					Trace.Check(mMethod != null, Trace.UNKNOWN_FUNCTION, fqn);
+					TracingHelper.Check(mMethod != null, TracingHelper.UNKNOWN_FUNCTION, fqn);
 
 					methodCache[fqn] = mMethod;
 				}
@@ -112,14 +112,14 @@ namespace SharpHsql
 				{
 					int x = fqn.IndexOf(',');
 
-					Trace.Check(x != -1, Trace.UnexpectedToken, fqn);
+					TracingHelper.Check(x != -1, TracingHelper.UnexpectedToken, fqn);
 
 					string assembly = fqn.Substring(0, x);
 					string className = fqn.Substring(x+1);
 					
 					int i = className.LastIndexOf('.');
 
-					Trace.Check(i != -1, Trace.UnexpectedToken, fqn);
+					TracingHelper.Check(i != -1, TracingHelper.UnexpectedToken, fqn);
 
 					this.name = className.Substring(i+1);
 
@@ -129,11 +129,11 @@ namespace SharpHsql
 
 					Type type = a.GetType(className, false);
 
-					Trace.Check(type != null, Trace.ERROR_IN_FUNCTION, fqn);
+					TracingHelper.Check(type != null, TracingHelper.ERROR_IN_FUNCTION, fqn);
 
 					mMethod = type.GetMethod(name);
 
-					Trace.Check(mMethod != null, Trace.UNKNOWN_FUNCTION, fqn);
+					TracingHelper.Check(mMethod != null, TracingHelper.UNKNOWN_FUNCTION, fqn);
 
 					methodCache[fqn] = mMethod;
 				}

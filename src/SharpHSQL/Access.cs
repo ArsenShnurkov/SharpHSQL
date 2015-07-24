@@ -99,7 +99,7 @@ namespace SharpHsql
 				return AccessType.Insert;
 			}
 
-			throw Trace.Error(Trace.UnexpectedToken, right);
+			throw TracingHelper.Error(TracingHelper.UnexpectedToken, right);
 		}
 
 		/// <summary>
@@ -165,7 +165,7 @@ namespace SharpHsql
 
 				if (u != null && u.Name.Equals(name)) 
 				{
-					throw Trace.Error(Trace.USER_ALREADY_EXISTS, name);
+					throw TracingHelper.Error(TracingHelper.USER_ALREADY_EXISTS, name);
 				}
 			}
 
@@ -190,7 +190,7 @@ namespace SharpHsql
 		/// <param name="name">name of the user to be dropped</param>
 		public void DropUser(string name) 
 		{
-			Trace.Check(!name.Equals("PUBLIC"), Trace.ACCESS_IS_DENIED);
+			TracingHelper.Check(!name.Equals("PUBLIC"), TracingHelper.ACCESS_IS_DENIED);
 
 			for (int i = 0; i < uUser.Count; i++) 
 			{
@@ -208,7 +208,7 @@ namespace SharpHsql
 				}
 			}
 
-			throw Trace.Error(Trace.USER_NOT_FOUND, name);
+			throw TracingHelper.Error(TracingHelper.USER_NOT_FOUND, name);
 		}
 		
 		/// <summary>
@@ -225,7 +225,7 @@ namespace SharpHsql
 		/// <returns>The requested User object</returns>
 		public User GetUser(string name, string password) 
 		{
-			Trace.Check(!name.Equals("PUBLIC"), Trace.ACCESS_IS_DENIED);
+			TracingHelper.Check(!name.Equals("PUBLIC"), TracingHelper.ACCESS_IS_DENIED);
 
 			if (name == null) 
 			{
@@ -296,7 +296,7 @@ namespace SharpHsql
 				}
 			}
 
-			throw Trace.Error(Trace.USER_NOT_FOUND, name);
+			throw TracingHelper.Error(TracingHelper.USER_NOT_FOUND, name);
 		}
 	}
 }

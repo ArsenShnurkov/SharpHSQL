@@ -68,9 +68,9 @@ namespace SharpHsql
 			iRight = din.ReadInt32();
 			iParent = din.ReadInt32();
 
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 		}
 
@@ -94,9 +94,9 @@ namespace SharpHsql
 
 		public Node GetLeft() 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			if (iLeft == 0) 
@@ -110,9 +110,9 @@ namespace SharpHsql
 
 		public void SetLeft(Node n) 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			rData.RowChanged();
@@ -134,9 +134,9 @@ namespace SharpHsql
 
 		public Node GetRight() 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			if (iRight == 0) 
@@ -150,9 +150,9 @@ namespace SharpHsql
 
 		public void SetRight(Node n) 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			rData.RowChanged();
@@ -174,9 +174,9 @@ namespace SharpHsql
 
 		public Node GetParent() 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			if (iParent == 0) 
@@ -190,9 +190,9 @@ namespace SharpHsql
 
 		public void SetParent(Node n) 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			rData.RowChanged();
@@ -214,9 +214,9 @@ namespace SharpHsql
 
 		public int GetBalance() 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 
 				// rData.iLastAccess=Row.iCurrentAccess++;
 			}
@@ -226,9 +226,9 @@ namespace SharpHsql
 
 		public void SetBalance(int b) 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			if (iBalance != b) 
@@ -241,9 +241,9 @@ namespace SharpHsql
 
 		public object[] GetData() 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			return rData.GetData();
@@ -251,23 +251,23 @@ namespace SharpHsql
 
 		public bool Equals(Node node) 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 
 				// rData.iLastAccess=Row.iCurrentAccess++;
 			}
 
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
 				if (node != this) 
 				{
-					Trace.Assert(rData.Pos == 0 || node == null
+					TracingHelper.Assert(rData.Pos == 0 || node == null
 						|| node.rData.Pos != rData.Pos);
 				} 
 				else 
 				{
-					Trace.Assert(node.rData.Pos == rData.Pos);
+					TracingHelper.Assert(node.rData.Pos == rData.Pos);
 				}
 			}
 
@@ -276,9 +276,9 @@ namespace SharpHsql
 
 		public void Write(BinaryWriter writer) 
 		{
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(iBalance != -2);
+				TracingHelper.Assert(iBalance != -2);
 			}
 
 			writer.Write(iBalance);

@@ -49,7 +49,7 @@
     <BaseAddress>0</BaseAddress>
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
-    <DefineConstants>DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DocumentationFile>doc\SharpHsql.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
@@ -89,9 +89,6 @@
       <Name>System.XML</Name>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System.Data.Linq" />
   </ItemGroup>
   <ItemGroup>
@@ -143,9 +140,6 @@
     <Compile Include="Declare.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="EventLogHelper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Expression.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -162,12 +156,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Like.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Log.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LogHelper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Node.cs">
@@ -254,18 +242,12 @@
     <Compile Include="TokenType.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Trace.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Transaction.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="User.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <EmbeddedResource Include="Provider\SharpHsqlCommand.resx">
       <DependentUpon>SharpHsqlCommand.cs</DependentUpon>
     </EmbeddedResource>
@@ -282,6 +264,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Provider\SharpHsqlDbProviderFactory.cs" />
+    <Compile Include="TracingHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\EventLogHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\LogHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Log.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -302,10 +296,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="KeyPair.snk" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Provider_EF\" />
+    <Folder Include="Logging\" />
   </ItemGroup>
 </Project>

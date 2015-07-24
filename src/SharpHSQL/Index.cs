@@ -125,9 +125,9 @@ namespace SharpHsql
 
 			while (true) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				if (n == null) 
@@ -147,7 +147,7 @@ namespace SharpHsql
 				x = n;
 				compare = CompareRow(data, x.GetData());
 
-				Trace.Check(compare != 0, Trace.VIOLATION_OF_UNIQUE_INDEX);
+				TracingHelper.Check(compare != 0, TracingHelper.VIOLATION_OF_UNIQUE_INDEX);
 
 				way = compare < 0;
 				n = Child(x, way);
@@ -155,9 +155,9 @@ namespace SharpHsql
 
 			while (true) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				int sign = way ? 1 : -1;
@@ -244,9 +244,9 @@ namespace SharpHsql
 				// todo: this can be improved
 				while (x.GetRight() != null) 
 				{
-					if (Trace.StopEnabled) 
+					if (TracingHelper.StopEnabled) 
 					{
-						Trace.Stop();
+						TracingHelper.Stop();
 					}
 
 					x = x.GetRight();
@@ -341,9 +341,9 @@ namespace SharpHsql
 
 			while (n != null) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				x = n;
@@ -418,9 +418,9 @@ namespace SharpHsql
 
 			while (x != null) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				int i = CompareRowNonUnique(data, x.GetData());
@@ -451,7 +451,7 @@ namespace SharpHsql
 
 		public Node FindFirst(object value, ExpressionType compare) 
 		{
-			Trace.Assert(compare == ExpressionType.Bigger
+			TracingHelper.Assert(compare == ExpressionType.Bigger
 				|| compare == ExpressionType.Equal
 				|| compare == ExpressionType.BiggerEqual,
 				"Index.findFirst");
@@ -466,9 +466,9 @@ namespace SharpHsql
 
 			while (x != null) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				bool t = CompareValue(value, x.GetData()[_column_0]) >= iTest;
@@ -500,9 +500,9 @@ namespace SharpHsql
 			while (x != null
 				&& CompareValue(value, x.GetData()[_column_0]) >= iTest) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				x = Next(x);
@@ -517,9 +517,9 @@ namespace SharpHsql
 
 			while (l != null) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				x = l;
@@ -547,9 +547,9 @@ namespace SharpHsql
 
 				while (l != null) 
 				{
-					if (Trace.StopEnabled) 
+					if (TracingHelper.StopEnabled) 
 					{
-						Trace.Stop();
+						TracingHelper.Stop();
 					}
 
 					x = l;
@@ -565,9 +565,9 @@ namespace SharpHsql
 
 			while (x != null && ch.Equals(x.GetRight())) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				ch = x;
@@ -623,9 +623,9 @@ namespace SharpHsql
 				return true;
 			}
 
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(x.GetParent() != null);
+				TracingHelper.Assert(x.GetParent() != null);
 			}
 
 			return x.Equals(x.GetParent().GetLeft());
@@ -637,9 +637,9 @@ namespace SharpHsql
 
 			while (x != null) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				int c = CompareRow(d, x.GetData());

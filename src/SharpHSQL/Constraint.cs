@@ -106,9 +106,9 @@ namespace SharpHsql
 			_refColumns = columnRef;
 			_len = columnMain.Length;
 
-			if (Trace.AssertEnabled) 
+			if (TracingHelper.AssertEnabled) 
 			{
-				Trace.Assert(columnMain.Length == columnRef.Length);
+				TracingHelper.Assert(columnMain.Length == columnRef.Length);
 			}
 
 			_mainData = _mainTable.NewRow;
@@ -197,7 +197,7 @@ namespace SharpHsql
 			} 
 			else 
 			{
-				Trace.Assert(false, "could not replace");
+				TracingHelper.Assert(false, "could not replace");
 			}
 		}
 
@@ -231,8 +231,8 @@ namespace SharpHsql
 			}
 
 			// a record must exist in the main table
-			Trace.Check(_mainIndex.Find(_mainData) != null,
-				Trace.INTEGRITY_CONSTRAINT_VIOLATION);
+			TracingHelper.Check(_mainIndex.Find(_mainData) != null,
+				TracingHelper.INTEGRITY_CONSTRAINT_VIOLATION);
 		}
 
 		/// <summary>
@@ -265,8 +265,8 @@ namespace SharpHsql
 			}
 
 			// there must be no record in the 'slave' table
-			Trace.Check(_refIndex.Find(_refData) == null,
-				Trace.INTEGRITY_CONSTRAINT_VIOLATION);
+			TracingHelper.Check(_refIndex.Find(_refData) == null,
+				TracingHelper.INTEGRITY_CONSTRAINT_VIOLATION);
 		}
 
 		/// <summary>

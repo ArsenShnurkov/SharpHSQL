@@ -150,7 +150,7 @@ namespace System.Data.Hsql
 			get
 			{ 
 				string tranID = this.LocalTransaction == null ? "null" : this.LocalTransaction.GetHashCode ().ToString ();
-				Trace.Write (string.Format ("Connection {0}, state={1}, Transaction={2}", this.GetHashCode (), _connState.ToString (), tranID));
+				TracingHelper.Write (string.Format ("Connection {0}, state={1}, Transaction={2}", this.GetHashCode (), _connState.ToString (), tranID));
 				return _connState; 
 			}
 		}

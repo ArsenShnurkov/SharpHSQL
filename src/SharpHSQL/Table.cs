@@ -117,8 +117,8 @@ namespace SharpHsql
 		{
 			if (identity) 
 			{
-				Trace.Check(type == ColumnType.Integer, Trace.WRONG_DATA_TYPE, name);
-				Trace.Check(iIdentityColumn == -1, Trace.SECOND_PRIMARY_KEY,
+				TracingHelper.Check(type == ColumnType.Integer, TracingHelper.WRONG_DATA_TYPE, name);
+				TracingHelper.Check(iIdentityColumn == -1, TracingHelper.SECOND_PRIMARY_KEY,
 					name);
 
 				iIdentityColumn = iColumnCount;
@@ -129,7 +129,7 @@ namespace SharpHsql
 				iTimestampColumn = iColumnCount;
 			}
 
-			Trace.Assert(iPrimaryKey == -1, "Table.addColumn");
+			TracingHelper.Assert(iPrimaryKey == -1, "Table.addColumn");
 			vColumn.Add(new Column(name, nullable, type, identity));
 
 			iColumnCount++;
@@ -254,7 +254,7 @@ namespace SharpHsql
 
 			if (i == -1) 
 			{
-				throw Trace.Error(Trace.COLUMN_NOT_FOUND, c);
+				throw TracingHelper.Error(TracingHelper.COLUMN_NOT_FOUND, c);
 			}
 
 			return i;
@@ -350,7 +350,7 @@ namespace SharpHsql
 		{
 			get
 			{
-				Trace.Assert(bCached, "Table.getIndexRootData");
+				TracingHelper.Assert(bCached, "Table.getIndexRootData");
 
 				string s = "";
 
@@ -375,7 +375,7 @@ namespace SharpHsql
 			set
 			{
 				// the user may try to set this; this is not only internal problem
-				Trace.Check(bCached, Trace.TABLE_NOT_FOUND);
+				TracingHelper.Check(bCached, TracingHelper.TABLE_NOT_FOUND);
 
 				int j = 0;
 
@@ -425,7 +425,7 @@ namespace SharpHsql
 
 		public void CreatePrimaryKey(int column) 
 		{
-			Trace.Assert(iPrimaryKey == -1, "Table.createPrimaryKey(column)");
+			TracingHelper.Assert(iPrimaryKey == -1, "Table.createPrimaryKey(column)");
 
 			iVisibleColumns = iColumnCount;
 			iPrimaryKey = column;
@@ -438,7 +438,7 @@ namespace SharpHsql
 
 		public void CreatePrimaryKey() 
 		{
-			Trace.Assert(iPrimaryKey == -1, "Table.createPrimaryKey");
+			TracingHelper.Assert(iPrimaryKey == -1, "Table.createPrimaryKey");
 			AddColumn("SYSTEM_ID", ColumnType.Integer, true, true);
 			CreatePrimaryKey(iColumnCount - 1);
 
@@ -452,7 +452,7 @@ namespace SharpHsql
 
 		public void CreateIndex(int[] column, string name, bool unique) 
 		{
-			Trace.Assert(iPrimaryKey != -1, "createIndex");
+			TracingHelper.Assert(iPrimaryKey != -1, "createIndex");
 
 			for (int i = 0; i < iIndexCount; i++) 
 			{
@@ -460,7 +460,7 @@ namespace SharpHsql
 
 				if (name.Equals(index.Name)) 
 				{
-					throw Trace.Error(Trace.INDEX_ALREADY_EXISTS);
+					throw TracingHelper.Error(TracingHelper.INDEX_ALREADY_EXISTS);
 				}
 			}
 
@@ -487,7 +487,7 @@ namespace SharpHsql
 
 			if (iIndexCount != 0) 
 			{
-				Trace.Assert(IsEmpty, "createIndex");
+				TracingHelper.Assert(IsEmpty, "createIndex");
 			}
 
 			vIndex.Add(newindex);
@@ -501,13 +501,13 @@ namespace SharpHsql
 			{
 				if (index.Equals(GetIndex(i).Name)) 
 				{
-					Trace.Check(i != 0, Trace.DROP_PRIMARY_KEY);
+					TracingHelper.Check(i != 0, TracingHelper.DROP_PRIMARY_KEY);
 
 					return;
 				}
 			}
 
-			throw Trace.Error(Trace.INDEX_NOT_FOUND, index);
+			throw TracingHelper.Error(TracingHelper.INDEX_NOT_FOUND, index);
 		}
 
 		public bool IsEmpty
@@ -533,9 +533,9 @@ namespace SharpHsql
 
 			while (n != null) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				object[] o = n.GetData();
@@ -550,9 +550,9 @@ namespace SharpHsql
 
 			while (n != null) 
 			{
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				object[] o = n.GetData();
@@ -674,7 +674,7 @@ namespace SharpHsql
 			{
 				if (row[i] == null &&!GetColumn(i).IsNullable) 
 				{
-					throw Trace.Error(Trace.TRY_TO_INSERT_NULL);
+					throw TracingHelper.Error(TracingHelper.TRY_TO_INSERT_NULL);
 				}
 			}
 

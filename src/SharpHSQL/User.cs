@@ -134,7 +134,7 @@ namespace SharpHsql
 		/// <param name="test">The password to test.</param>
 		internal void CheckPassword(string test) 
 		{
-			Trace.Check(test.Equals(_password), Trace.ACCESS_IS_DENIED);
+			TracingHelper.Check(test.Equals(_password), TracingHelper.ACCESS_IS_DENIED);
 		}
 
 		/// <summary>
@@ -221,7 +221,7 @@ namespace SharpHsql
 				}
 			}
 
-			throw Trace.Error(Trace.ACCESS_IS_DENIED);
+			throw TracingHelper.Error(TracingHelper.ACCESS_IS_DENIED);
 		}
 
 		/// <summary>
@@ -229,7 +229,7 @@ namespace SharpHsql
 		/// </summary>
 		internal void CheckAdmin() 
 		{
-			Trace.Check(IsAdmin, Trace.ACCESS_IS_DENIED);
+			TracingHelper.Check(IsAdmin, TracingHelper.ACCESS_IS_DENIED);
 		}
 
 		#endregion

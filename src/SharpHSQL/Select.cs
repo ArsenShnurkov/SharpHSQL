@@ -125,7 +125,7 @@ namespace SharpHsql
 			int    size = r.Size;
 			int    len = r.ColumnCount;
 
-			Trace.Check(size == 1 && len == 1, Trace.SINGLE_VALUE_EXPECTED);
+			TracingHelper.Check(size == 1 && len == 1, TracingHelper.SINGLE_VALUE_EXPECTED);
 
 			object o = r.Root.Data[0];
 
@@ -155,7 +155,7 @@ namespace SharpHsql
 
 			if (sUnion != null && sUnion.iResultLen != iResultLen) 
 			{
-				throw Trace.Error(Trace.COLUMN_COUNT_DOES_NOT_MATCH);
+				throw TracingHelper.Error(TracingHelper.COLUMN_COUNT_DOES_NOT_MATCH);
 			}
 
 			int     len = eColumn.Length;

@@ -138,7 +138,7 @@ namespace SharpHsql
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.FILE_IO_ERROR, "error " + e + " opening " + _name);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, "error " + e + " opening " + _name);
 			}
 		}
 
@@ -159,7 +159,7 @@ namespace SharpHsql
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.FILE_IO_ERROR, "error " + e + " closing " + _name);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, "error " + e + " closing " + _name);
 			}
 		}
 
@@ -176,7 +176,7 @@ namespace SharpHsql
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.FILE_IO_ERROR, "error " + e + " in shutdown " + _name);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, "error " + e + " in shutdown " + _name);
 			}
 		}
 
@@ -230,9 +230,9 @@ namespace SharpHsql
 
 			while (f != null) 
 			{
-				if (Trace.TraceEnabled) 
+				if (TracingHelper.TraceEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 				// first that is long enough
 				if (f.Length >= size) 
@@ -304,8 +304,8 @@ namespace SharpHsql
 
 			while (r != null) 
 			{
-				if (Trace.StopEnabled) 
-					Trace.Stop();
+				if (TracingHelper.StopEnabled) 
+					TracingHelper.Stop();
 
 				int p = r.Pos;
 
@@ -329,7 +329,7 @@ namespace SharpHsql
 
 			try 
 			{
-				LogHelper.Publish( String.Format("Retrieving row at position: {0}.", pos ), LogHelper.LogEntryType.Debug );
+				LogHelper.Publish( String.Format("Retrieving row at position: {0}.", pos ), LogEntryType.Debug );
 
 				_fileStream.Seek(pos, SeekOrigin.Begin);
 
@@ -340,7 +340,7 @@ namespace SharpHsql
 
 				buffer = b.ReadBytes(size);
 
-				LogHelper.Publish( String.Format("Row Size: {0}. Retrieved {1} bytes.", size, buffer.Length ), LogHelper.LogEntryType.Debug );
+				LogHelper.Publish( String.Format("Row Size: {0}. Retrieved {1} bytes.", size, buffer.Length ), LogEntryType.Debug );
 
 				MemoryStream bin = new MemoryStream(buffer);
 				BinaryReader din = new BinaryReader(bin, System.Text.Encoding.Unicode);
@@ -354,7 +354,7 @@ namespace SharpHsql
 				Console.WriteLine(e.StackTrace);
 				#endif
 
-				throw Trace.Error(Trace.FILE_IO_ERROR, "reading: " + e);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, "reading: " + e);
 			}
 
 			_cacheSize++;
@@ -380,8 +380,8 @@ namespace SharpHsql
 			while (j++ < LENGTH && _cacheSize + LENGTH > MAX_CACHE_SIZE && 
 				(count * 16) < LENGTH) 
 			{
-				if (Trace.StopEnabled) 
-					Trace.Stop();
+				if (TracingHelper.StopEnabled) 
+					TracingHelper.Stop();
 
 				Row r = GetWorst();
 
@@ -430,8 +430,8 @@ namespace SharpHsql
 		/// <param name="row">Row to be removed</param>
 		private void Remove(Row row) 
 		{
-			if (Trace.AssertEnabled) 
-				Trace.Assert(!row.Changed);
+			if (TracingHelper.AssertEnabled) 
+				TracingHelper.Assert(!row.Changed);
 
 			// make sure _rowLastChecked does not point to r
 			if (row == _rowLastChecked) 
@@ -525,8 +525,8 @@ namespace SharpHsql
 
 				do 
 				{
-					if (Trace.StopEnabled) 
-						Trace.Stop();
+					if (TracingHelper.StopEnabled) 
+						TracingHelper.Stop();
 
 					if (r.Changed) 
 						_rowWriter[count++] = r;
@@ -560,30 +560,30 @@ namespace SharpHsql
 			{
 				BinaryWriter b = new BinaryWriter(_fileStream);
 
-				LogHelper.Publish( "Saving rows to cache.", LogHelper.LogEntryType.Debug );
+				LogHelper.Publish( "Saving rows to cache.", LogEntryType.Debug );
 
 				for (int i = 0; i < count; i++) 
 				{
-					LogHelper.Publish( String.Format("Writing row number {0}. File at position: {1}.", i, _fileStream.Position ), LogHelper.LogEntryType.Debug );
+					LogHelper.Publish( String.Format("Writing row number {0}. File at position: {1}.", i, _fileStream.Position ), LogEntryType.Debug );
 
 					if( _fileStream.Position < _rowWriter[i].Pos )
 						_fileStream.Seek(_rowWriter[i].Pos,SeekOrigin.Begin);
 
 					if( _fileStream.Position > _rowWriter[i].Pos )
-						Trace.Error( Trace.INPUTSTREAM_ERROR );
+						TracingHelper.Error( TracingHelper.INPUTSTREAM_ERROR );
 
 					byte[] row = _rowWriter[i].Write();
 
-					Trace.Check( (row.Length == _rowWriter[i].Size), Trace.SERIALIZATION_FAILURE );
+					TracingHelper.Check( (row.Length == _rowWriter[i].Size), TracingHelper.SERIALIZATION_FAILURE );
 
-					LogHelper.Publish( String.Format("Byte array size: {0}. Row Pos: {1}. Row Size: {2}", row.Length, _rowWriter[i].Pos, _rowWriter[i].Size ), LogHelper.LogEntryType.Debug );
+					LogHelper.Publish( String.Format("Byte array size: {0}. Row Pos: {1}. Row Size: {2}", row.Length, _rowWriter[i].Pos, _rowWriter[i].Size ), LogEntryType.Debug );
 
 					b.Write(row);
 				}
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.FILE_IO_ERROR, "saveSorted " + e);
+				throw TracingHelper.Error(TracingHelper.FILE_IO_ERROR, "saveSorted " + e);
 			}
 		}
 
@@ -621,8 +621,8 @@ namespace SharpHsql
 
 				while (true) 
 				{
-					if (Trace.StopEnabled) 
-						Trace.Stop();
+					if (TracingHelper.StopEnabled) 
+						TracingHelper.Stop();
 
 					while (w[++i].Pos < p);
 
@@ -642,8 +642,8 @@ namespace SharpHsql
 
 			for (i = l + 1; i <= r; i++) 
 			{
-				if (Trace.StopEnabled) 
-					Trace.Stop();
+				if (TracingHelper.StopEnabled) 
+					TracingHelper.Stop();
 
 				Row t = w[i];
 

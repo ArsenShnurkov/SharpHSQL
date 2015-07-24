@@ -121,9 +121,9 @@ namespace SharpHsql
 
 			int iCurrent = din.ReadInt32();
 
-			LogHelper.Publish( String.Format("Row read with {0} columns. Row read position from file: {1}. Current position: {2}.", oData.Length, iCurrent, Pos ), LogHelper.LogEntryType.Debug );
+			LogHelper.Publish( String.Format("Row read with {0} columns. Row read position from file: {1}. Current position: {2}.", oData.Length, iCurrent, Pos ), LogEntryType.Debug );
 
-			Trace.Check(iCurrent == Pos, Trace.INPUTSTREAM_ERROR);
+			TracingHelper.Check(iCurrent == Pos, TracingHelper.INPUTSTREAM_ERROR);
 			Insert(before);
 
 			LastAccess = CurrentAccess++;
@@ -202,14 +202,14 @@ namespace SharpHsql
 
 			while (n != null) 
 			{
-				if (Trace.AssertEnabled) 
+				if (TracingHelper.AssertEnabled) 
 				{
-					Trace.Assert(n.iBalance != -2);
+					TracingHelper.Assert(n.iBalance != -2);
 				}
 
-				if (Trace.StopEnabled) 
+				if (TracingHelper.StopEnabled) 
 				{
-					Trace.Stop();
+					TracingHelper.Stop();
 				}
 
 				if (n.iParent == 0 && n.nParent == null) 

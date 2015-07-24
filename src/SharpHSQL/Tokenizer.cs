@@ -92,7 +92,7 @@ namespace SharpHsql
 
 		public void Back() 
 		{
-			Trace.Assert(!bWait, "back");
+			TracingHelper.Assert(!bWait, "back");
 
 			bWait = true;
 		}
@@ -103,7 +103,7 @@ namespace SharpHsql
 
 			if (!sToken.Equals(match)) 
 			{
-				throw Trace.Error(Trace.UnexpectedToken, sToken);
+				throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 			}
 		}
 
@@ -125,7 +125,7 @@ namespace SharpHsql
 				return sToken.ToUpper();
 			}
 
-			throw Trace.Error(Trace.UnexpectedToken, sToken);
+			throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 		}
 
 		public bool WasValue
@@ -209,7 +209,7 @@ namespace SharpHsql
 
 			if (!WasName) 
 			{
-				throw Trace.Error(Trace.UnexpectedToken, sToken);
+				throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 			}
 
 			return sToken;
@@ -261,7 +261,7 @@ namespace SharpHsql
 			{
 				if (!WasValue) 
 				{
-					throw Trace.Error(Trace.UnexpectedToken, sToken);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 				}
 
 				if (iType == TokenType.STRING) 
@@ -384,7 +384,7 @@ namespace SharpHsql
 			} 
 			else 
 			{
-				throw Trace.Error(Trace.UnexpectedToken, "" + c);
+				throw TracingHelper.Error(TracingHelper.UnexpectedToken, "" + c);
 			}
 
 			int start = iIndex++;
@@ -396,8 +396,8 @@ namespace SharpHsql
 					c = ' ';
 					end = true;
 
-					Trace.Check(iType != TokenType.STRING && iType != TokenType.QUOTED_IDENTIFIER,
-						Trace.UNEXPECTED_END_OF_COMMAND);
+					TracingHelper.Check(iType != TokenType.STRING && iType != TokenType.QUOTED_IDENTIFIER,
+						TracingHelper.UNEXPECTED_END_OF_COMMAND);
 				} 
 				else 
 				{
@@ -585,7 +585,7 @@ namespace SharpHsql
 
 							if (point) 
 							{
-								throw Trace.Error(Trace.UnexpectedToken, ".");
+								throw TracingHelper.Error(TracingHelper.UnexpectedToken, ".");
 							}
 
 							point = true;
@@ -594,7 +594,7 @@ namespace SharpHsql
 						{
 							if (exp) 
 							{
-								throw Trace.Error(Trace.UnexpectedToken, "E");
+								throw TracingHelper.Error(TracingHelper.UnexpectedToken, "E");
 							}
 
 							afterexp = true;    // first character after exp may be + or -
@@ -623,7 +623,7 @@ namespace SharpHsql
 									return;
 								}
 
-								throw Trace.Error(Trace.UnexpectedToken, "" + c);
+								throw TracingHelper.Error(TracingHelper.UnexpectedToken, "" + c);
 							}
 
 							sToken = sCommand.Substring(start, (iIndex - start));

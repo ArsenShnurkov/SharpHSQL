@@ -488,8 +488,8 @@ namespace SharpHsql
 		/// </summary>
 		public void CheckResolved() 
 		{
-			Trace.Check(_type != ExpressionType.DatabaseColumn || tFilter != null,
-				Trace.COLUMN_NOT_FOUND, sColumn);
+			TracingHelper.Check(_type != ExpressionType.DatabaseColumn || tFilter != null,
+				TracingHelper.COLUMN_NOT_FOUND, sColumn);
 
 			if (eArg != null) 
 			{
@@ -528,8 +528,8 @@ namespace SharpHsql
 					{
 
 						// todo: other error message: multiple tables are possible
-						Trace.Check(tFilter == null || tFilter == filter,
-							Trace.COLUMN_NOT_FOUND, sColumn);
+						TracingHelper.Check(tFilter == null || tFilter == filter,
+							TracingHelper.COLUMN_NOT_FOUND, sColumn);
 
 						tFilter = filter;
 						iColumn = i;
@@ -676,7 +676,7 @@ namespace SharpHsql
 					break;
 
 				default:
-					Trace.Assert(false, "Expression.swapCondition");
+					TracingHelper.Assert(false, "Expression.swapCondition");
 					break;
 			}
 
@@ -747,7 +747,7 @@ namespace SharpHsql
 					} 
 					catch
 					{
-						throw Trace.Error(Trace.COLUMN_NOT_FOUND, sColumn);
+						throw TracingHelper.Error(TracingHelper.COLUMN_NOT_FOUND, sColumn);
 					}
 
 				case ExpressionType.Function:
@@ -831,7 +831,7 @@ namespace SharpHsql
 				case ExpressionType.Equal:
 					if( eArg.Type == ExpressionType.Variable )
 					{
-						Trace.Check(eArg2 != null, Trace.GENERAL_ERROR);
+						TracingHelper.Check(eArg2 != null, TracingHelper.GENERAL_ERROR);
 
 						return eArg2.GetValue(eArg._columnType);
 					}
@@ -892,7 +892,7 @@ namespace SharpHsql
 				return false;
 			}
 
-			throw Trace.Error(Trace.WRONG_DATA_TYPE);
+			throw TracingHelper.Error(TracingHelper.WRONG_DATA_TYPE);
 		}
 
 		/// <summary>
@@ -908,7 +908,7 @@ namespace SharpHsql
 					return true;
 
 				case ExpressionType.Not:
-					Trace.Assert(eArg2 == null, "Expression.test");
+					TracingHelper.Assert(eArg2 == null, "Expression.test");
 
 					return !eArg.Test();
 
@@ -937,12 +937,12 @@ namespace SharpHsql
 					return r.Root != null;
 			}
 
-			Trace.Check(eArg != null, Trace.GENERAL_ERROR);
+			TracingHelper.Check(eArg != null, TracingHelper.GENERAL_ERROR);
 
 			object o = eArg.GetValue();
 			ColumnType dtype = eArg._columnType;
 
-			Trace.Check(eArg2 != null, Trace.GENERAL_ERROR);
+			TracingHelper.Check(eArg2 != null, TracingHelper.GENERAL_ERROR);
 
 			object o2 = eArg2.GetValue(dtype);
 			int    result = Column.Compare(o, o2, dtype);
@@ -969,7 +969,7 @@ namespace SharpHsql
 					return result != 0;
 			}
 
-			Trace.Assert(false, "Expression.test2");
+			TracingHelper.Assert(false, "Expression.test2");
 
 			return false;
 		}

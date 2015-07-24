@@ -130,7 +130,7 @@ namespace SharpHsql
 		{
 			get
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				return _id;
 			}
@@ -154,7 +154,7 @@ namespace SharpHsql
 		{
 			get
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				return _user.Name;
 			}
@@ -168,7 +168,7 @@ namespace SharpHsql
 		{
 			get
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				return _readOnly;
 			}
@@ -181,13 +181,13 @@ namespace SharpHsql
 		{
 			get
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				return _maxRows;
 			}
 			set
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				_maxRows = value;
 			}
@@ -204,7 +204,7 @@ namespace SharpHsql
 		/// <returns></returns>
 		public Result Execute(string statement) 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			return this._database.Execute( statement, this);
 		}
@@ -233,7 +233,7 @@ namespace SharpHsql
 		/// <param name="autoCommit"></param>
 		public void SetAutoCommit(bool autoCommit) 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			Commit();
 
@@ -245,7 +245,7 @@ namespace SharpHsql
 		/// </summary>
 		public void Commit() 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			_transaction.Clear();
 		}
@@ -255,7 +255,7 @@ namespace SharpHsql
 		/// </summary>
 		public void Rollback() 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			int i = _transaction.Count - 1;
 
@@ -277,7 +277,7 @@ namespace SharpHsql
 		/// <param name="readOnly"></param>
 		public void SetReadOnly(bool readOnly) 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			_readOnly = readOnly;
 		}
@@ -292,7 +292,7 @@ namespace SharpHsql
 		/// <param name="declare"></param>
 		internal void AddDeclare( Declare declare )
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			_variables[declare.Name] = declare;
 		}
@@ -304,7 +304,7 @@ namespace SharpHsql
 		/// <param name="value"></param>
 		internal void SetDeclareValue( string name, object value )
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			Declare declare = _variables[name] as Declare;
 
@@ -315,7 +315,7 @@ namespace SharpHsql
 			}
 			else
 			{
-				throw Trace.Error(Trace.VARIABLE_NOT_DECLARED);
+				throw TracingHelper.Error(TracingHelper.VARIABLE_NOT_DECLARED);
 			}
 		}
 
@@ -325,7 +325,7 @@ namespace SharpHsql
 		/// <param name="name"></param>
 		internal Declare GetDeclare( string name )
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			return _variables[name] as Declare;
 		}
@@ -336,7 +336,7 @@ namespace SharpHsql
 		/// <param name="name"></param>
 		internal object GetDeclareValue( string name )
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			Declare declare = _variables[name] as Declare;
 
@@ -346,7 +346,7 @@ namespace SharpHsql
 			}
 			else
 			{
-				throw Trace.Error(Trace.VARIABLE_NOT_DECLARED);
+				throw TracingHelper.Error(TracingHelper.VARIABLE_NOT_DECLARED);
 			}
 		}
 
@@ -357,13 +357,13 @@ namespace SharpHsql
 		{
 			get
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				return _lastIdentity;
 			}
 			set
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				_lastIdentity = value;
 			}
@@ -376,7 +376,7 @@ namespace SharpHsql
 		{
 			get
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				return _database;
 			}
@@ -388,7 +388,7 @@ namespace SharpHsql
 		/// <param name="user"></param>
 		internal void SetUser(User user) 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			_user = user;
 		}
@@ -398,7 +398,7 @@ namespace SharpHsql
 		/// </summary>
 		internal void CheckAdmin()
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			_user.CheckAdmin();
 		}
@@ -410,7 +410,7 @@ namespace SharpHsql
 		/// <param name="right"></param>
 		internal void Check(string databaseObject, AccessType right)
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			_user.Check(databaseObject, right);
 		}
@@ -420,9 +420,9 @@ namespace SharpHsql
 		/// </summary>
 		internal void CheckReadWrite() 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
-			Trace.Check(!_readOnly, Trace.DATABASE_IS_READONLY);
+			TracingHelper.Check(!_readOnly, TracingHelper.DATABASE_IS_READONLY);
 		}
 
 		/// <summary>
@@ -431,7 +431,7 @@ namespace SharpHsql
 		/// <param name="password"></param>
 		internal void SetPassword(string password) 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			_user.Password = password;
 		}
@@ -443,7 +443,7 @@ namespace SharpHsql
 		/// <param name="row"></param>
 		internal void AddTransactionDelete(Table table, object[] row) 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			if (!_autoCommit) 
 			{
@@ -460,7 +460,7 @@ namespace SharpHsql
 		/// <param name="row"></param>
 		internal void AddTransactionInsert(Table table, object[] row) 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 			if (!_autoCommit) 
 			{
@@ -475,9 +475,9 @@ namespace SharpHsql
 		/// </summary>
 		internal void BeginNestedTransaction() 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
-			Trace.Assert(!_nestedTransaction, "beginNestedTransaction");
+			TracingHelper.Assert(!_nestedTransaction, "beginNestedTransaction");
 
 			_nestedOldAutoCommit = _autoCommit;
 
@@ -493,9 +493,9 @@ namespace SharpHsql
 		/// <param name="rollback"></param>
 		internal void EndNestedTransaction(bool rollback) 
 		{
-			Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+			TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
-			Trace.Assert(_nestedTransaction, "EndNestedTransaction");
+			TracingHelper.Assert(_nestedTransaction, "EndNestedTransaction");
 
 			int i = _transaction.Count - 1;
 
@@ -528,7 +528,7 @@ namespace SharpHsql
 		{
 			get
 			{
-				Trace.Check(!_closed, Trace.CONNECTION_IS_CLOSED);
+				TracingHelper.Check(!_closed, TracingHelper.CONNECTION_IS_CLOSED);
 
 				return _nestedTransaction;
 			}

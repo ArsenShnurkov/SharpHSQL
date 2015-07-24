@@ -566,7 +566,7 @@ namespace SharpHsql
 			} 
 			catch (Exception e) 
 			{
-				throw Trace.Error(Trace.FUNCTION_NOT_SUPPORTED, e.Message);
+				throw TracingHelper.Error(TracingHelper.FUNCTION_NOT_SUPPORTED, e.Message);
 			}
 		}
 
@@ -1125,7 +1125,7 @@ namespace SharpHsql
 			} 
 			else 
 			{
-				throw Trace.Error(Trace.ERROR_IN_FUNCTION);
+				throw TracingHelper.Error(TracingHelper.ERROR_IN_FUNCTION);
 			}
 		}
 
@@ -1150,7 +1150,7 @@ namespace SharpHsql
 				case "ms":
 					return new DateTime( elapsed.Ticks ).Millisecond;
 				default:
-					throw Trace.Error(Trace.ERROR_IN_FUNCTION);
+					throw TracingHelper.Error(TracingHelper.ERROR_IN_FUNCTION);
 			}
 		}
 

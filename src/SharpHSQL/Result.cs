@@ -118,7 +118,7 @@ namespace SharpHsql
 
 				if (_mode == ResultType.Error) 
 				{
-					throw Trace.GetError(din.ReadString());
+					throw TracingHelper.GetError(din.ReadString());
 				} 
 				else if (_mode == ResultType.UpdateCount) 
 				{
@@ -154,7 +154,7 @@ namespace SharpHsql
 			catch (Exception e) 
 			{
 				LogHelper.Publish( "Unexpected error on Result.", e );
-				Trace.Error(Trace.TRANSFER_CORRUPTED);
+				TracingHelper.Error(TracingHelper.TRANSFER_CORRUPTED);
 			}
 		}
 
@@ -395,7 +395,7 @@ namespace SharpHsql
 			catch (Exception e) 
 			{
 				LogHelper.Publish( "Unexpected error on getBytes.", e );
-				throw Trace.Error(Trace.TRANSFER_CORRUPTED);
+				throw TracingHelper.Error(TracingHelper.TRANSFER_CORRUPTED);
 			}
 		}
 

@@ -99,9 +99,6 @@
     <Compile Include="Class1.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Content Include="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

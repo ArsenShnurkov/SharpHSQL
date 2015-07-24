@@ -3,6 +3,9 @@ using System;
 using System.Collections;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
+
+
 #endregion
 
 #region License
@@ -52,13 +55,6 @@ namespace SharpHsql
 	/// </summary>
 	sealed class StringConverter 
 	{
-		#if !POCKETPC
-		/// <summary>
-		/// Reference to the appropriate logger.
-		/// </summary>
-		static readonly log4net.ILog Logger = log4net.LogManager.GetLogger(typeof(StringConverter));
-		#endif
-
 		private static char[]   HEXCHAR = 
 		{
 			'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
@@ -114,15 +110,9 @@ namespace SharpHsql
 				writer.Close();
 				stream.Close();
 			} 
-            #if !POCKETPC
             catch (Exception e)
-            #else
-			catch
-            #endif
 			{
-				#if !POCKETPC
-				if( Logger.IsErrorEnabled ) Logger.Error( "Unexpected error on unicodeToHexstring.", e );
-				#endif
+				Trace.WriteLine(e.ToString());
 				return null;
 			}
 
@@ -139,15 +129,9 @@ namespace SharpHsql
 			{
 				return writer.ReadString();
 			}
-#if !POCKETPC
             catch (Exception e)
-#else
-			catch
-#endif
 			{
-				#if !POCKETPC
-				if( Logger.IsErrorEnabled ) Logger.Error( "Unexpected error on hexstringToUnicode.", e );
-				#endif
+				Trace.WriteLine(e.ToString());
 				return null;
 			}
 		}
@@ -263,7 +247,7 @@ namespace SharpHsql
 			} 
 			catch (IOException e) 
 			{
-				throw Trace.Error(Trace.INPUTSTREAM_ERROR, e.Message);
+				throw TracingHelper.Error(TracingHelper.INPUTSTREAM_ERROR, e.Message);
 			}
 
 			return write.ToString();

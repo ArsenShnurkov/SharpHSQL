@@ -391,7 +391,7 @@ namespace SharpHsql
 
 					if (!token.Equals(",")) 
 					{
-						throw Trace.Error(Trace.UnexpectedToken, token);
+						throw TracingHelper.Error(TracingHelper.UnexpectedToken, token);
 					}
 				}
 
@@ -427,14 +427,14 @@ namespace SharpHsql
 
 						if (i > len) 
 						{
-							throw Trace.Error(Trace.COLUMN_COUNT_DOES_NOT_MATCH);
+							throw TracingHelper.Error(TracingHelper.COLUMN_COUNT_DOES_NOT_MATCH);
 						}
 					} 
 					else 
 					{
 						if (i > len) 
 						{
-							throw Trace.Error(Trace.COLUMN_COUNT_DOES_NOT_MATCH);
+							throw TracingHelper.Error(TracingHelper.COLUMN_COUNT_DOES_NOT_MATCH);
 						}
 
 						column = t.GetColumnNumber((string) vcolumns[i]);
@@ -451,7 +451,7 @@ namespace SharpHsql
 
 					if (!token.Equals(",")) 
 					{
-						throw Trace.Error(Trace.UnexpectedToken, token);
+						throw TracingHelper.Error(TracingHelper.UnexpectedToken, token);
 					}
 				}
 
@@ -464,7 +464,7 @@ namespace SharpHsql
 				Result result = ProcessSelect();
 				Record r = result.Root;
 
-				Trace.Check(len == result.ColumnCount, Trace.COLUMN_COUNT_DOES_NOT_MATCH);
+				TracingHelper.Check(len == result.ColumnCount, TracingHelper.COLUMN_COUNT_DOES_NOT_MATCH);
 
 				int[] col = new int[len];
 				ColumnType[] type = new ColumnType[len];
@@ -521,7 +521,7 @@ namespace SharpHsql
 			} 
 			else 
 			{
-				throw Trace.Error(Trace.UnexpectedToken, token);
+				throw TracingHelper.Error(TracingHelper.UnexpectedToken, token);
 			}
 
 			Result rs = new Result();
@@ -796,7 +796,7 @@ namespace SharpHsql
 				} 
 				else 
 				{
-					throw Trace.Error(Trace.UnexpectedToken, token);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, token);
 				}
 			} 
 			else if (token.Equals("DELETE")) 
@@ -1024,7 +1024,7 @@ namespace SharpHsql
 				} 
 				else 
 				{
-					throw Trace.Error(Trace.UnexpectedToken, token);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, token);
 				}
 
 				count = 3;
@@ -1104,7 +1104,7 @@ namespace SharpHsql
 
 				if (!token.Equals("FROM")) 
 				{
-					throw Trace.Error(Trace.UnexpectedToken, token);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, token);
 				}
 
 				Expression condition = null;
@@ -1127,7 +1127,7 @@ namespace SharpHsql
 							token = tTokenizer.GetString();
 						}
 
-						Trace.Check(token.Equals("JOIN"), Trace.UnexpectedToken,
+						TracingHelper.Check(token.Equals("JOIN"), TracingHelper.UnexpectedToken,
 							token);
 						vfilter.Add(ParseTableFilter(true));
 						tTokenizer.GetThis("ON");
@@ -1202,7 +1202,7 @@ namespace SharpHsql
 							}
 						}
 
-						Trace.Check(table != null, Trace.TABLE_NOT_FOUND, n);
+						TracingHelper.Check(table != null, TracingHelper.TABLE_NOT_FOUND, n);
 
 						// minus the asterix element
 						len--;
@@ -1533,7 +1533,7 @@ namespace SharpHsql
 
 				Read();
 				ReadThis(ExpressionType.Open);
-				Trace.Check(iToken == ExpressionType.Select, Trace.UnexpectedToken);
+				TracingHelper.Check(iToken == ExpressionType.Select, TracingHelper.UnexpectedToken);
 
 				Expression s = new Expression(ParseSelect());
 
@@ -1567,14 +1567,14 @@ namespace SharpHsql
 
 						Expression c = ReadTerm();
 
-						Trace.Check(c.Type == ExpressionType.Value,
-							Trace.InvalidEscape);
+						TracingHelper.Check(c.Type == ExpressionType.Value,
+							TracingHelper.InvalidEscape);
 
 						string s = (string) c.GetValue(ColumnType.VarChar);
 
 						if (s == null || s.Length < 1) 
 						{
-							throw Trace.Error(Trace.InvalidEscape, s);
+							throw TracingHelper.Error(TracingHelper.InvalidEscape, s);
 						}
 
 						escape = Convert.ToChar(s.Substring(0,1));
@@ -1639,7 +1639,7 @@ namespace SharpHsql
 				} 
 				else 
 				{
-					Trace.Check(!not, Trace.UnexpectedToken);
+					TracingHelper.Check(!not, TracingHelper.UnexpectedToken);
 
 					if (Expression.IsCompare(iToken)) 
 					{
@@ -1664,7 +1664,7 @@ namespace SharpHsql
 
 		private void ReadThis(ExpressionType type) 
 		{
-			Trace.Check(iToken == type, Trace.UnexpectedToken);
+			TracingHelper.Check(iToken == type, TracingHelper.UnexpectedToken);
 			Read();
 		}
 
@@ -1796,7 +1796,7 @@ namespace SharpHsql
 
 				if (iToken != ExpressionType.Close) 
 				{
-					throw Trace.Error(Trace.UnexpectedToken, sToken);
+					throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 				}
 
 				Read();
@@ -1881,7 +1881,7 @@ namespace SharpHsql
 
 				r = ReadOr();
 
-				Trace.Check(sToken.Equals("AS"), Trace.UnexpectedToken, sToken);
+				TracingHelper.Check(sToken.Equals("AS"), TracingHelper.UnexpectedToken, sToken);
 				Read();
 
 				ColumnType t = Column.GetColumnType(sToken);
@@ -1924,7 +1924,7 @@ namespace SharpHsql
 					}
 					else
 					{
-						throw Trace.Error(Trace.VARIABLE_NOT_DECLARED, sToken);
+						throw TracingHelper.Error(TracingHelper.VARIABLE_NOT_DECLARED, sToken);
 					}
 				}
 
@@ -1932,7 +1932,7 @@ namespace SharpHsql
 			}
 			else 
 			{
-				throw Trace.Error(Trace.UnexpectedToken, sToken);
+				throw TracingHelper.Error(TracingHelper.UnexpectedToken, sToken);
 			}
 
 			return r;
