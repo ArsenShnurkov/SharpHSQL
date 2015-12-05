@@ -39,7 +39,7 @@ using SharpHsql;
  *
  * This package is based on HypersonicSQL, originally developed by Thomas Mueller.
  *
- * C# SharpHsql ADO.NET Provider by Andrés G Vettori.
+ * C# SharpHsql ADO.NET Provider by Andr¨¦s G Vettori.
  * http://workspaces.gotdotnet.com/sharphsql
  */
 #endregion
@@ -54,7 +54,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlCommand"/>
 	/// <seealso cref="SharpHsqlDataAdapter"/>
 	/// </summary>
-	public sealed class SharpHsqlTransaction : IDbTransaction
+	public sealed class SharpHsqlTransaction : DbTransaction, IDbTransaction
 	{
 		#region Constructors
 
@@ -78,7 +78,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Aborts the current active transaction.
 		/// </summary>
-		public void Rollback()
+		public override void Rollback()
 		{
 			if (this._sqlConnection == null)
 			{
@@ -94,7 +94,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Closes the current transaction applying all changes to the database.
 		/// </summary>
-		public void Commit()
+		public override void Commit()
 		{
 			if (this._sqlConnection.Channel == null)
 			{
@@ -109,7 +109,18 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Gets the connection instance used in the transaction.
 		/// </summary>
-		public IDbConnection Connection
+		protected override DbConnection DbConnection
+		{
+			get
+			{
+				return _sqlConnection;
+			}
+		}
+
+		/// <summary>
+		/// Gets the connection instance used in the transaction.
+		/// </summary>
+		public new IDbConnection Connection
 		{
 			get
 			{
@@ -120,7 +131,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Gets the transaction isolation level.
 		/// </summary>
-		public System.Data.IsolationLevel IsolationLevel
+		public override System.Data.IsolationLevel IsolationLevel
 		{
 			get
 			{
@@ -135,13 +146,13 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Dispose this transaction doing a rollback if needed.
 		/// </summary>
-		public void Dispose()
+		public new void Dispose()
 		{
 			this.Dispose(true);
 			GC.SuppressFinalize(this);
 		}
 
-		private void Dispose(bool disposing)
+		private new void Dispose(bool disposing)
 		{
 			if (disposing && (this._sqlConnection != null))
 			{

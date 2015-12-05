@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace System.Data.Hsql
 {
 	using System.Data.Common;
@@ -11,6 +13,11 @@ namespace System.Data.Hsql
 		/// Static instance member which returns an instanced SharpHsqlFactory class.
 		/// </summary>
 		public static readonly SharpHsqlDbProviderFactory Instance = new SharpHsqlDbProviderFactory();	
+
+		public SharpHsqlDbProviderFactory()
+		{
+			Trace.WriteLine ("SharpHsqlDbProviderFactory.ctor()");
+		}
 		/// <summary>
 		/// Returns a new SharpHsqlCommand object.
 		/// </summary>

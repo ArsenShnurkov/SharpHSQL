@@ -58,7 +58,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlParameter"/>
 	/// <seealso cref="SharpHsqlTransaction"/>
 	/// </summary>
-	public sealed class SharpHsqlCommand : Component, IDbCommand, ICloneable, IDisposable
+	public sealed class SharpHsqlCommand : DbCommand, IDbCommand, ICloneable, IDisposable
 	{
 		#region Constructors
 
@@ -94,11 +94,11 @@ namespace System.Data.Hsql
 		#endregion
 
 		#region Public Methods
-		
+
 		/// <summary>
 		/// Command text to be executed.
 		/// </summary>
-		public string CommandText
+		public override string CommandText
 		{
 			get { return _commandText;  }
 			set { _commandText = value; }
@@ -107,7 +107,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set Execution timeout for the command.
 		/// </summary>
-		public int CommandTimeout
+		public override int CommandTimeout
 		{
 			get { return _commandTimeout; }
 			set { _commandTimeout = value; }
@@ -116,7 +116,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the Type of the current command.
 		/// </summary>
-		public CommandType CommandType
+		public override CommandType CommandType
 		{
 			get { return _commandType; }
 			set { _commandType = value; }
@@ -125,10 +125,28 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the Connection being used by the current command.
 		/// </summary>
-		public SharpHsqlConnection Connection
+		public new SharpHsqlConnection Connection
 		{
 			get { return _connection;  }
 			set { _connection = value; }
+		}
+
+		/// <summary>
+		/// Get or set the Connection being used by the current command.
+		/// </summary>
+		protected override DbConnection DbConnection
+		{
+			get { return _connection;  }
+			set { _connection = (SharpHsqlConnection) value; }
+		}
+
+		/// <summary>
+		/// Get or set the Connection being used by the current command.
+		/// </summary>
+		protected override DbTransaction DbTransaction
+		{
+			get { return _transaction;  }
+			set { _transaction = (SharpHsqlTransaction) value; }
 		}
 
 		/// <summary>
@@ -144,6 +162,18 @@ namespace System.Data.Hsql
 		/// Command parameter collection.
 		/// </summary>
 		IDataParameterCollection IDbCommand.Parameters
+		{
+			get
+			{
+				if (this._parameters == null)
+				{
+					this._parameters = new SharpHsqlParameterCollection(this);
+				}
+				return this._parameters;
+			}
+		}
+
+		protected override DbParameterCollection DbParameterCollection
 		{
 			get
 			{
@@ -221,7 +251,7 @@ namespace System.Data.Hsql
 		/// <summary>
 		/// Get or set the <see cref="UpdateRowSource"/> for the command.
 		/// </summary>
-		public UpdateRowSource UpdatedRowSource
+		public override UpdateRowSource UpdatedRowSource
 		{
 			get
 			{
@@ -236,22 +266,27 @@ namespace System.Data.Hsql
 				this._updatedRowSource = value;
 			}
 		}
- 
+
 		/// <summary>
 		/// Cancels the current operation.
 		/// </summary>
-		public void Cancel()
+		public override void Cancel()
 		{
 			if( _connection == null || _connection.State != ConnectionState.Open )
 				throw new InvalidOperationException("Can't execute if connection is not open.");
 
 		}
 
+		protected override DbParameter CreateDbParameter()
+		{
+			return CreateParameter();
+		}
+
 		/// <summary>
 		/// Creates and returns a new <see cref="SharpHsqlParameter"/> object.
 		/// </summary>
 		/// <returns></returns>
-		public SharpHsqlParameter CreateParameter()
+		public new SharpHsqlParameter CreateParameter()
 		{
 			return new SharpHsqlParameter();
 		}
@@ -269,10 +304,10 @@ namespace System.Data.Hsql
 		/// Executes a query with no results.
 		/// </summary>
 		/// <returns></returns>
-		public int ExecuteNonQuery()
+		public override int ExecuteNonQuery()
 		{
 			this.ValidateCommand("ExecuteNonQuery", true);
-			
+
 			ResolveParameters();
 
 			Result res = _connection.Execute( _commandText );
@@ -301,11 +336,16 @@ namespace System.Data.Hsql
 			return ExecuteReader(behavior);
 		}
 
+		protected  override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
+		{
+			return ExecuteReader(behavior);
+		}
+
 		/// <summary>
 		/// Executes a query returning an <see cref="SharpHsqlReader"/> object.
 		/// </summary>
 		/// <returns></returns>
-		public SharpHsqlReader ExecuteReader()
+		public new SharpHsqlReader ExecuteReader()
 		{
 			return ExecuteReader(CommandBehavior.Default);
 		}
@@ -321,7 +361,7 @@ namespace System.Data.Hsql
 
 			ResolveParameters();
 
-			
+
 			_result = _connection.Execute( _commandText );
 
 			return new SharpHsqlReader( this );
@@ -331,7 +371,7 @@ namespace System.Data.Hsql
 		/// Executes a query returning a single result.
 		/// </summary>
 		/// <returns></returns>
-		public object ExecuteScalar()
+		public override object ExecuteScalar()
 		{
 			this.ValidateCommand("ExecuteScalar", true);
 
@@ -347,7 +387,7 @@ namespace System.Data.Hsql
 			}
 
 			return ret;
-			
+
 		}
 
 		/// <summary>
@@ -364,12 +404,12 @@ namespace System.Data.Hsql
 			reader1.Close();
 			*/
 		}
- 
+
 		/// <summary>
 		/// Prepare a stored procedure on the database.
 		/// </summary>
 		/// <remarks>Not currently supported.</remarks>
-		public void Prepare()
+		public override void Prepare()
 		{
 			throw new InvalidOperationException("SharpHSql Provider does not support this function");
 		}
@@ -542,8 +582,8 @@ namespace System.Data.Hsql
 						#else
 						declares.AppendFormat(null, "DECLARE {0} {1};", p.ParameterName, GetDataTypeName( p.DbType ) );
 						if( p.Direction == ParameterDirection.Input || 
-							p.Direction == ParameterDirection.InputOutput )
-							declares.AppendFormat(null, "SET {0} = {1};", p.ParameterName, GetParameterValue( p.Value ) );
+						p.Direction == ParameterDirection.InputOutput )
+						declares.AppendFormat(null, "SET {0} = {1};", p.ParameterName, GetParameterValue( p.Value ) );
 						#endif
 						parms.Add( p.ParameterName );
 					}
@@ -586,22 +626,22 @@ namespace System.Data.Hsql
 
 			switch( value.GetType().Name )
 			{
-				case "Guid":
-					return "'" + ((Guid)value).ToString("N") + "'";
-				case "DateTime":
-					return "'" + ((DateTime)value).ToString("yyyy.MM.dd HH:mm:ss.fffffff") + "'";
-				case "Double":
-					return string.Format(CultureInfo.InvariantCulture.NumberFormat, "{0}", value);
-				case "String":
-				case "Char":
-					return "'" + value.ToString().Replace('\'', '´') + "'";
-				case "Byte[]":
-					return "'" + new ByteArray( (byte[])value ).ToString() + "'";
-				default:
-					if( value is ValueType )
-						return value.ToString();
-					else
-						return "'" + ByteArray.SerializeTostring( value ) + "'";
+			case "Guid":
+				return "'" + ((Guid)value).ToString("N") + "'";
+			case "DateTime":
+				return "'" + ((DateTime)value).ToString("yyyy.MM.dd HH:mm:ss.fffffff") + "'";
+			case "Double":
+				return string.Format(CultureInfo.InvariantCulture.NumberFormat, "{0}", value);
+			case "String":
+			case "Char":
+				return "'" + value.ToString().Replace('\'', '´') + "'";
+			case "Byte[]":
+				return "'" + new ByteArray( (byte[])value ).ToString() + "'";
+			default:
+				if( value is ValueType )
+					return value.ToString();
+				else
+					return "'" + ByteArray.SerializeTostring( value ) + "'";
 
 			}
 		}
@@ -619,16 +659,16 @@ namespace System.Data.Hsql
 		{
 			switch (p.Direction)
 			{
-				case ParameterDirection.Input:
+			case ParameterDirection.Input:
 				{
 					return false;
 				}
-				case ParameterDirection.Output:
-				case ParameterDirection.InputOutput:
+			case ParameterDirection.Output:
+			case ParameterDirection.InputOutput:
 				{
 					return true;
 				}
-				case ParameterDirection.ReturnValue:
+			case ParameterDirection.ReturnValue:
 				{
 					return false;
 				}
@@ -678,54 +718,54 @@ namespace System.Data.Hsql
 		{
 			switch( type )
 			{
-				case DbType.AnsiString:
-				case DbType.String:
-					return "VARCHAR";				
-				case DbType.AnsiStringFixedLength:
-				case DbType.StringFixedLength:
-					return "CHAR";
-				case DbType.Boolean:
-					return "BIT";
-				case DbType.Binary:
-					return "BINARY";
-				case DbType.Byte:
-					return "TINYINT";
-				case DbType.Currency:
-					return "DECIMAL";
-				case DbType.Date:
-					return "DATE";
-				case DbType.DateTime:
-					return "DATE";
-				case DbType.Decimal:
-					return "DECIMAL";
-				case DbType.Double:
-					return "DOUBLE";
-				case DbType.Guid:
-					return "UNIQUEIDENTIFIER";
-				case DbType.Int16:
-					return "SMALLINT";
-				case DbType.Int32:
-					return "INT";
-				case DbType.Int64:
-					return "BIGINT";
-				case DbType.Object:
-					return "OBJECT";
-				case DbType.SByte:
-					return "SMALLINT";
-				case DbType.Single:
-					return "REAL";
-				case DbType.Time:
-					return "TIME";
-				case DbType.UInt16:
-					return "INT";
-				case DbType.UInt32:
-					return "BIGINT";
-				case DbType.UInt64:
-					return "NUMERIC";
-				case DbType.VarNumeric:
-					return "NUMERIC";
-				default:
-					return "OTHER";
+			case DbType.AnsiString:
+			case DbType.String:
+				return "VARCHAR";				
+			case DbType.AnsiStringFixedLength:
+			case DbType.StringFixedLength:
+				return "CHAR";
+			case DbType.Boolean:
+				return "BIT";
+			case DbType.Binary:
+				return "BINARY";
+			case DbType.Byte:
+				return "TINYINT";
+			case DbType.Currency:
+				return "DECIMAL";
+			case DbType.Date:
+				return "DATE";
+			case DbType.DateTime:
+				return "DATE";
+			case DbType.Decimal:
+				return "DECIMAL";
+			case DbType.Double:
+				return "DOUBLE";
+			case DbType.Guid:
+				return "UNIQUEIDENTIFIER";
+			case DbType.Int16:
+				return "SMALLINT";
+			case DbType.Int32:
+				return "INT";
+			case DbType.Int64:
+				return "BIGINT";
+			case DbType.Object:
+				return "OBJECT";
+			case DbType.SByte:
+				return "SMALLINT";
+			case DbType.Single:
+				return "REAL";
+			case DbType.Time:
+				return "TIME";
+			case DbType.UInt16:
+				return "INT";
+			case DbType.UInt32:
+				return "BIGINT";
+			case DbType.UInt64:
+				return "NUMERIC";
+			case DbType.VarNumeric:
+				return "NUMERIC";
+			default:
+				return "OTHER";
 			}
 		}	
 		#endregion
@@ -748,7 +788,7 @@ namespace System.Data.Hsql
 		private SharpHsqlParameterCollection _parameters = null;
 		private Result _result = null;
 		private UpdateRowSource _updatedRowSource;
- 
+
 		#endregion
 
 		#region IDisposable Members
@@ -762,5 +802,11 @@ namespace System.Data.Hsql
 		}
 
 		#endregion
+
+		private bool _visible = true;
+		public override bool DesignTimeVisible {
+			get { return _visible; }
+			set { _visible = value; }
+		}
 	}
 }

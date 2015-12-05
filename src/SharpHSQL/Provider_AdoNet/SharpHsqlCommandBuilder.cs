@@ -3,6 +3,9 @@ using System;
 using System.ComponentModel;
 using System.Collections;
 using System.Diagnostics;
+using System.Data.Common;
+
+
 #endregion
 
 #region License
@@ -39,7 +42,7 @@ using System.Diagnostics;
  *
  * This package is based on HypersonicSQL, originally developed by Thomas Mueller.
  *
- * C# SharpHsql ADO.NET Provider by Andrés G Vettori.
+ * C# SharpHsql ADO.NET Provider by Andr¨¦s G Vettori.
  * http://workspaces.gotdotnet.com/sharphsql
  */
 #endregion
@@ -54,7 +57,7 @@ namespace System.Data.Hsql
 	/// <seealso cref="SharpHsqlTransaction"/>
 	/// <seealso cref="SharpHsqlDataAdapter"/>
 	/// </summary>
-	public class SharpHsqlCommandBuilder : Component
+	public class SharpHsqlCommandBuilder : DbCommandBuilder
 	{
 		#region Constructors
 
@@ -137,7 +140,7 @@ namespace System.Data.Hsql
 		{
 			return (SharpHsqlCommand) this.GetBuilder().GetDeleteCommand();
 		}
- 
+
 		/// <summary>
 		/// Gets the insert command.
 		/// </summary>
@@ -178,7 +181,7 @@ namespace System.Data.Hsql
 				this.GetBuilder().DataAdapter = value;
 			}
 		}
- 
+
 		/// <summary>
 		/// Get or set the quote prefix.
 		/// </summary>
@@ -245,5 +248,27 @@ namespace System.Data.Hsql
 			components = new System.ComponentModel.Container();
 		}
 		#endregion
+		protected override void ApplyParameterInfo (DbParameter parameter, DataRow row, StatementType statementType, bool whereClause)
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected override string GetParameterName (string parameterName)
+		{
+			throw new NotImplementedException ();
+		}
+
+		protected override string GetParameterName (int parameterOrdinal)
+		{
+			throw new NotImplementedException ();
+		}
+		protected override string GetParameterPlaceholder (int parameterOrdinal)
+		{
+			throw new NotImplementedException ();
+		}
+		protected override void SetRowUpdatingHandler (DbDataAdapter adapter)
+		{
+			throw new NotImplementedException ();
+		}
 	}
 }

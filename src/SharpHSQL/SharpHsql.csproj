@@ -257,18 +257,6 @@
     <Compile Include="Provider_AdoNet\SharpHsqlTransaction.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="Provider_AdoNet\SharpHsqlCommand.resx">
-      <DependentUpon>SharpHsqlCommand.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Provider_AdoNet\SharpHsqlCommandBuilder.resx">
-      <DependentUpon>SharpHsqlCommandBuilder.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Provider_AdoNet\SharpHsqlConnection.resx">
-      <DependentUpon>SharpHsqlConnection.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Provider_AdoNet\SharpHsqlReader.resx">
-      <DependentUpon>SharpHsqlReader.cs</DependentUpon>
-    </EmbeddedResource>
     <Compile Include="Provider_AdoNet\SharpHsqlConnectionStringBuilder.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -276,6 +264,7 @@
     <Compile Include="Parsing\Tokenizer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Provider_AdoNet\SharpHsqlConnectionString.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
