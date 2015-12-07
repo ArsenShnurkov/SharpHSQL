@@ -1512,9 +1512,9 @@ namespace SharpHsql
 		private Expression ReadTableFieldExpression()
 		{
 			Expression r1 = ReadTerm ();
-			if (r1.Type != ExpressionType.DatabaseColumn) {
+			/*if (r1.Type != ExpressionType.DatabaseColumn) {
 				throw TracingHelper.Error (TracingHelper.FIELD_OF_TABLE_IS_EXPECTED, sToken);
-			}
+			}*/
 
 			//Read ();
 			if (iToken == ExpressionType.Dot) {

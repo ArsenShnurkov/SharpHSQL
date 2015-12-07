@@ -563,7 +563,7 @@ namespace System.Data.Hsql
 			if( CommandText != null && CommandText != 
 				string.Empty && GetParameterCount() > 0 )
 			{
-				string command = CommandText;
+				StringBuilder command = new StringBuilder(CommandText);
 
 				StringBuilder declares = new StringBuilder();
 				ArrayList parms = new ArrayList();
@@ -589,8 +589,25 @@ namespace System.Data.Hsql
 					}
 					else
 					{
-						if( command.IndexOf( name ) > -1 )
-							command = command.Replace( name, GetParameterValue(p.Value) );
+						for (;;) {
+							var index = command.ToString ().IndexOf (name);
+							if (index < 0) {
+								break;
+							}
+							bool escaped = false;
+							if (command [index - 1] == '@' || command [index - 1] == '?' || command [index - 1] == '$') {
+								command.Remove (index - 1, 1);
+								escaped = true;
+							}
+							if (command [index - 1] == '{' && command [index + name.Length] == '}') {
+								command.Remove (index + name.Length, 1);
+								command.Remove (index - 1, 1);
+								escaped = true;
+							}
+							if (escaped) {
+								command.Replace (name, GetParameterValue (p.Value));
+							}
+						}
 					}
 				}
 				CommandText = string.Concat( declares.ToString(), command, BuildParameterSelect( parms) )  ;
