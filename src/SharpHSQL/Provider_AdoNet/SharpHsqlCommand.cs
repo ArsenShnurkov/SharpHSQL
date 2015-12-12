@@ -355,16 +355,26 @@ namespace System.Data.Hsql
 		/// </summary>
 		/// <param name="behavior"></param>
 		/// <returns></returns>
-		public SharpHsqlReader ExecuteReader(CommandBehavior behavior)
+		public new SharpHsqlReader ExecuteReader(CommandBehavior behavior)
 		{
-			this.ValidateCommand("ExecuteReader", true);
+			try
+			{
+				this.ValidateCommand("ExecuteReader", true);
 
-			ResolveParameters();
+				ResolveParameters();
 
 
-			_result = _connection.Execute( _commandText );
+				_result = _connection.Execute( _commandText );
 
-			return new SharpHsqlReader( this );
+				return new SharpHsqlReader( this );
+			}
+			catch (Exception ex) {
+				var msg = string.Format ("Error while accessing database '{0}' in '{1}'",
+					this.Connection.InternalDatabase.Name,
+					this.Connection.InternalDatabase.GetDirectoryAsString()
+				);
+				throw new SharpHsqlException (msg, ex);
+			}
 		}
 
 		/// <summary>

@@ -44,26 +44,22 @@ using System;
 
 namespace SharpHsql
 {
-	#region ResultType Enum
-
 	/// <summary>
 	/// Enum that defines the result type.
 	/// </summary>
 	public enum ResultType
 	{
 		/// <summary>
-		/// Rows updated.
-		/// </summary>
-		UpdateCount = 0, 
-		/// <summary>
 		/// Result has errors.
 		/// </summary>
-		Error = 1, 
+		Error = 0, 
+		/// <summary>
+		/// Rows updated.
+		/// </summary>
+		UpdateCount = 1, 
 		/// <summary>
 		/// Result as data.
 		/// </summary>
-		Data = 2
+		Data = 2,
 	}
-
-	#endregion
 }

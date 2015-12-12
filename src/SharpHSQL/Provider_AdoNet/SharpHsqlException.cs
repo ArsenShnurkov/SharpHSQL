@@ -72,7 +72,20 @@ namespace System.Data.Hsql
 			base.HResult = -2146232060;
 			#endif
 		}
+		internal SharpHsqlException(Exception ex) : base(null, ex)
+		{
+			#if !POCKETPC
+			base.HResult = -2146232060;
+			#endif
+		}
 
+		internal SharpHsqlException( string error, Exception internalException ) : base(error, internalException)
+		{
+			_message = error;
+			#if !POCKETPC
+			base.HResult = -2146232060;
+			#endif
+		}
 		/// <summary>
 		/// Constructor using an error string.
 		/// </summary>
@@ -117,6 +130,7 @@ namespace System.Data.Hsql
 		/// <param name="sc"></param>
 		private SharpHsqlException(SerializationInfo si, StreamingContext sc) : this()
 		{
+			this._message = (string) si.GetValue("Message", typeof(string));
 			this._errors = (SharpHsqlErrorCollection) si.GetValue("Errors", typeof(SharpHsqlErrorCollection));
 		}
 		#endif
@@ -134,6 +148,7 @@ namespace System.Data.Hsql
 			{
 				throw new ArgumentNullException("si");
 			}
+			si.AddValue("Message", this._message, typeof(string));
 			si.AddValue("Errors", this._errors, typeof(SharpHsqlErrorCollection));
 			base.GetObjectData(si, context);
 		}
@@ -158,6 +173,8 @@ namespace System.Data.Hsql
 			}
 		}
 
+		protected string _message = String.Empty;
+
 		/// <summary>
 		/// Exception message.
 		/// </summary>
@@ -166,6 +183,7 @@ namespace System.Data.Hsql
 			get
 			{
 				StringBuilder builder = new StringBuilder();
+				builder.AppendFormat ("{0}\r\n", _message);
 				for (int i = 0; i < this.Errors.Count; i++)
 				{
 					if (i > 0)

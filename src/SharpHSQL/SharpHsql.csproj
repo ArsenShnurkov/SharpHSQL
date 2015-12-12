@@ -119,9 +119,6 @@
     <Compile Include="Database.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DatabaseConfig.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DatabaseController.cs">
       <SubType>Code</SubType>
     </Compile>

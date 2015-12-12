@@ -912,7 +912,14 @@ namespace SharpHsql
 
 			return new Result();
 		}
-
+		public string GetDirectoryAsString()
+		{
+			return System.IO.Directory.GetCurrentDirectory();
+		}
+		public System.IO.DirectoryInfo GetDirectory()
+		{
+			return new System.IO.DirectoryInfo(GetDirectoryAsString());
+		}
 		private Result ProcessShow(Tokenizer tokenizer, Channel channel)
 		{
 			Result r = new Result(1);
@@ -941,8 +948,7 @@ namespace SharpHsql
 				r.Label[0] = "DATABASE";
 				r.Type[0] = ColumnType.VarChar;
 
-				System.IO.DirectoryInfo di = new 
-					System.IO.DirectoryInfo(System.IO.Directory.GetCurrentDirectory());
+				System.IO.DirectoryInfo di = GetDirectory();
 				System.IO.FileInfo[] rgFiles = di.GetFiles("*.data");
 				foreach(System.IO.FileInfo fi in rgFiles)
 				{

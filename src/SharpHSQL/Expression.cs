@@ -214,6 +214,7 @@ namespace SharpHsql
 			get
 			{
 				if (_type == ExpressionType.Count || 
+					// _type == ExpressionType.RowNum || RowNum is not an aggregate
 					_type == ExpressionType.Maximum || 
 					_type == ExpressionType.Minimum || 
 					_type == ExpressionType.Sum
@@ -618,6 +619,7 @@ namespace SharpHsql
 					break;
 
 				case ExpressionType.Count:
+				case ExpressionType.RowNumber:
 					_columnType = ColumnType.Integer;
 					break;
 
@@ -768,7 +770,6 @@ namespace SharpHsql
 					}
 
 					return 0;
-
 				case ExpressionType.Maximum:
 				case ExpressionType.Minimum:
 				case ExpressionType.Sum:

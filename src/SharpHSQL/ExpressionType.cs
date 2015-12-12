@@ -246,6 +246,18 @@ namespace SharpHsql
 		/// Database column
 		/// </summary>
 		DatabaseColumn = 112, 
+		/// <summary>
+		/// ROW_NUMBER
+		/// </summary>
+		RowNumber = 113, 
+		/// <summary>
+		/// OVER
+		/// </summary>
+		Over = 114, 
+		/// <summary>
+		/// ROWNUM - short syntax for ROW_NUMBER
+		/// </summary>
+		Rownum = 115, 
 	}
 
 	#endregion

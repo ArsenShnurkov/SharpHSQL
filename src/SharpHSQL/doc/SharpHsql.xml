@@ -847,14 +847,6 @@
             <summary>
             Class Destructor.
             </summary></member>
-        <member name="T:SharpHsql.DatabaseConfig">
-            <summary>
-            Database configuration class.
-            </summary></member>
-        <member name="M:SharpHsql.DatabaseConfig.#ctor">
-            <summary>
-            Default constructor.
-            </summary></member>
         <member name="T:SharpHsql.DatabaseController">
             <summary>
             Controller class for single point database access.
@@ -1254,6 +1246,18 @@
         <member name="F:SharpHsql.ExpressionType.DatabaseColumn">
             <summary>
             Database column
+            </summary></member>
+        <member name="F:SharpHsql.ExpressionType.RowNumber">
+            <summary>
+            ROW_NUMBER
+            </summary></member>
+        <member name="F:SharpHsql.ExpressionType.Over">
+            <summary>
+            OVER
+            </summary></member>
+        <member name="F:SharpHsql.ExpressionType.Rownum">
+            <summary>
+            ROWNUM - short syntax for ROW_NUMBER
             </summary></member>
         <member name="T:SharpHsql.Function">
             <summary>
@@ -2076,13 +2080,13 @@
             <summary>
             Enum that defines the result type.
             </summary></member>
-        <member name="F:SharpHsql.ResultType.UpdateCount">
-            <summary>
-            Rows updated.
-            </summary></member>
         <member name="F:SharpHsql.ResultType.Error">
             <summary>
             Result has errors.
+            </summary></member>
+        <member name="F:SharpHsql.ResultType.UpdateCount">
+            <summary>
+            Rows updated.
             </summary></member>
         <member name="F:SharpHsql.ResultType.Data">
             <summary>

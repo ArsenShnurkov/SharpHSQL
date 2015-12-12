@@ -1271,6 +1271,7 @@ namespace SharpHsql
 			// todo: really this should be in readTerm
 			// but then grouping is much more complex
 			if (iToken == ExpressionType.Minimum || iToken == ExpressionType.Maximum
+			    // || iToken == ExpressionType.Rownum - it is not an aggregate!
 			    || iToken == ExpressionType.Count || iToken == ExpressionType.Sum
 			    || iToken == ExpressionType.Average) {
 				ExpressionType type = iToken;
@@ -1509,7 +1510,7 @@ namespace SharpHsql
 			return r;
 		}
 
-		private Expression ReadTableFieldExpression()
+		private Expression ReadTableFieldExpression ()
 		{
 			Expression r1 = ReadTerm ();
 			/*if (r1.Type != ExpressionType.DatabaseColumn) {
@@ -1536,7 +1537,25 @@ namespace SharpHsql
 		{
 			Expression r = null;
 
-			if (iToken == ExpressionType.DatabaseColumn) {
+			if (iToken == ExpressionType.Rownum) {
+				var thisToken = iToken;
+				Read ();
+				ReadThis (ExpressionType.Open);
+				ReadThis (ExpressionType.Close);
+				r = new Expression (thisToken, null, null);
+			}
+			else if (iToken == ExpressionType.RowNumber) {
+				var thisToken = iToken;
+				Read ();
+				ReadThis (ExpressionType.Open);
+				ReadThis (ExpressionType.Close);
+				ReadThis (ExpressionType.Over);
+				ReadThis (ExpressionType.Open);
+				var t = ReadTerm ();
+				ReadThis (ExpressionType.Close);
+				r = new Expression (thisToken, t, null);
+			}
+			else if (iToken == ExpressionType.DatabaseColumn) {
 				string name = sToken;
 
 				r = new Expression (sTable, sToken);
@@ -1545,7 +1564,8 @@ namespace SharpHsql
 
 				if (iToken == ExpressionType.Open) {
 					Function f = new Function (dDatabase.GetAlias (name), cChannel);
-					/*int len = */f.GetArgCount ();
+					/*int len = */
+					f.GetArgCount ();
 					int i = 0;
 
 					Read ();
@@ -1696,7 +1716,7 @@ namespace SharpHsql
 				ReadThis (ExpressionType.SquareBracketLeft);
 				var t = ReadTerm ();
 				if (t.Type != ExpressionType.DatabaseColumn) {
-					throw TracingHelper.Error (TracingHelper.FIELD_OF_TABLE_IS_EXPECTED, /*tTokenizer.GetString()*/ "???");
+					throw TracingHelper.Error (TracingHelper.FIELD_OF_TABLE_IS_EXPECTED, /*tTokenizer.GetString()*/"???");
 				}
 				ReadThis (ExpressionType.SquareBracketRight);
 				return t;
@@ -1793,6 +1813,12 @@ namespace SharpHsql
 				iToken = ExpressionType.Like;
 			} else if (sToken.Equals ("COUNT")) {
 				iToken = ExpressionType.Count;
+			} else if (sToken.Equals ("ROWNUM")) {
+				iToken = ExpressionType.Rownum;
+			} else if (sToken.Equals ("ROW_NUMBER")) {
+				iToken = ExpressionType.RowNumber;
+			} else if (sToken.Equals ("OVER")) {
+				iToken = ExpressionType.Over;
 			} else if (sToken.Equals ("SUM")) {
 				iToken = ExpressionType.Sum;
 			} else if (sToken.Equals ("MIN")) {

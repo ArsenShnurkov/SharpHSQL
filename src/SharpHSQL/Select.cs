@@ -40,6 +40,8 @@ using System.Collections;
  * C# port by Mark Tutt
  * C# SharpHsql by Andrés G Vettori.
  * http://workspaces.gotdotnet.com/sharphsql
+ * portions by
+ * fredt@users.sourceforge.net
  */
 #endregion
 
@@ -62,10 +64,8 @@ namespace SharpHsql
 		public SelectType		UnionType;
 		public bool				OnlyVars;		// true if the select has only variables
 
-		// fredt@users.sourceforge.net begin changes from 1.50
 		public int limitStart = 0;
 		public int limitCount = -1;
-		// fredt@users.sourceforge.net end changes from 1.50
 
 		public void Resolve() 
 		{
@@ -141,15 +141,13 @@ namespace SharpHsql
 
 		public Result GetResult(int maxrows, Channel cChannel) 
 		{
-			// fredt@users.sourceforge.net begin changes from 1.50
 			return GetResult( 0, maxrows, cChannel );
 		}
-		// fredt@users.sourceforge.net end changes from 1.50
-		// fredt@users.sourceforge.net begin changes from 1.50
+
 		public Result GetResult(int start, int cnt, Channel cChannel) 
 		{
 			int maxrows=start+cnt;  //<-new, cut definitly
-			// fredt@users.sourceforge.net begin changes from 1.50
+
 			Resolve();
 			CheckResolved();
 
@@ -160,30 +158,26 @@ namespace SharpHsql
 
 			int     len = eColumn.Length;
 			Result  r = new Result(len);
-			bool aggregated = false;
-			bool grouped = false;
 
+			bool aggregated = false;
 			for (int i = 0; i < len; i++) 
 			{
 				Expression e = eColumn[i];
-
 				r.Type[i] = e.ColumnType;
-
 				if (e.IsAggregate) 
 				{
 					aggregated = true;
 				}
 			}
-
 			object[] agg = null;
-
 			if (aggregated) 
 			{
 				agg = new object[len];
 			}
 
-			if (iGroupLen > 0) 
-			{    // has been set in Parser
+			bool grouped = false;
+			if (iGroupLen > 0) // iGroupLen has been set in Parser (where in Parser?)
+			{    
 				grouped = true;
 			}
 
@@ -241,7 +235,11 @@ namespace SharpHsql
 
 					for (int i = 0; i < len; i++) 
 					{
-						row[i] = eColumn[i].GetValue();
+						if (eColumn [i].Type == ExpressionType.Rownum) {
+							row [i] = count;
+						} else {
+							row [i] = eColumn [i].GetValue ();
+						}
 
 						if( cChannel != null && eColumn[i].IsVarAssign )
 						{
@@ -394,12 +392,10 @@ namespace SharpHsql
 				TrimResult(r, maxrows);
 			}
 
-			// fredt@users.sourceforge.net begin changes from 1.50
 			if (start > 0) 
 			{	//then cut the first 'start' elements
 				TrimResultFront( r, start );
 			}
-			// fredt@users.sourceforge.net end changes from 1.50
 
 			return r;
 		}
@@ -412,7 +408,9 @@ namespace SharpHsql
 
 				switch (eColumn[i].Type) 
 				{
-
+					case ExpressionType.RowNumber:
+						row [i] = len;
+						break;
 					case ExpressionType.Average:
 					case ExpressionType.Sum:
 					case ExpressionType.Count:
@@ -447,6 +445,14 @@ namespace SharpHsql
 				else if (t == ExpressionType.Count) 
 				{
 					// this fixes the problem with count(*) on a empty table
+					if (row[i] == null) 
+					{
+						row[i] = 0;
+					}
+				}
+				if (t == ExpressionType.RowNumber) 
+				{
+					// this is copy of previous block, not sure if this block is necessary
 					if (row[i] == null) 
 					{
 						row[i] = 0;
@@ -673,7 +679,6 @@ namespace SharpHsql
 			return r;
 		}
 
-		// fredt@users.sourceforge.net begin changes from 1.50
 		private static void TrimResultFront( Result result, int start ) 
 		{
 			Record n=result.Root;
@@ -692,7 +697,6 @@ namespace SharpHsql
 			result.SetRoot( n );
 		}
 
-		// fredt@users.sourceforge.net end changes from 1.50
 		private static void TrimResult(Result result, int maxrows) 
 		{
 			Record n = result.Root;
