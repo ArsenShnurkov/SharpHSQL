@@ -492,22 +492,22 @@ namespace SharpHsql
 			TracingHelper.Check(_type != ExpressionType.DatabaseColumn || tFilter != null,
 				TracingHelper.COLUMN_NOT_FOUND, sColumn);
 
-			if (eArg != null) 
+			if (eArg != null)
 			{
 				eArg.CheckResolved();
 			}
 
-			if (eArg2 != null) 
+			if (eArg2 != null)
 			{
 				eArg2.CheckResolved();
 			}
 
-			if (sSelect != null) 
+			if (sSelect != null)
 			{
 				sSelect.CheckResolved();
 			}
 
-			if (fFunction != null) 
+			if (fFunction != null)
 			{
 				fFunction.CheckResolved();
 			}
@@ -619,6 +619,7 @@ namespace SharpHsql
 					break;
 
 				case ExpressionType.Count:
+				case ExpressionType.Rownum:
 				case ExpressionType.RowNumber:
 					_columnType = ColumnType.Integer;
 					break;
